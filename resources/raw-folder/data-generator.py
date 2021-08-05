@@ -4,7 +4,7 @@ import random
 from datetime import datetime
 from decimal import Decimal
 from faker import Faker
-
+import pandas as pd
 
 fake = Faker()
 
