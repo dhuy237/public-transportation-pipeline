@@ -144,7 +144,8 @@ CREATE TABLE [Schedule].[Trip](
 	[trip_id] [int] NOT NULL,
 	[bus_code] [int] NOT NULL,
 	[trip_headsign] [nvarchar](150) NOT NULL,
-	[timestamp_stop] [timestamp] NOT NULL,
+    [date_stop] [date] NOT NULL,
+	[time_stop] [time](7) NOT NULL,
 	[number_of_ticket] [int] NOT NULL,
  CONSTRAINT [PK_Trip] PRIMARY KEY CLUSTERED 
 (

@@ -73,7 +73,7 @@ def create_agency(output_path, numOfRecords=20, seed_num=0):
             writer.writerow(
                 {
                     'agency_id': 100 + i,
-                    'name': fake.company(),
+                    'name': fake.company().split(',')[0],
                     'phone_number': fake.phone_number(),
                     'address': fake.address(),
                     'operating_hour_start': start_time,
@@ -177,7 +177,7 @@ def create_stop_time(output_path, numOfRecords=10000, numOfBusStop=100):
 def create_trip(output_path, numOfRecords=10000, numOfBus=60):
     filename = output_path+'/trip.csv'
     with open(filename, 'w', newline='') as csvfile:
-        fieldnames = ['trip_id', 'bus_code', 'trip_headsign', 'timestamp_stop', 'number_of_ticket']
+        fieldnames = ['trip_id', 'bus_code', 'trip_headsign', 'date_stop', 'time_stop', 'number_of_ticket']
 
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
@@ -187,8 +187,9 @@ def create_trip(output_path, numOfRecords=10000, numOfBus=60):
                 {
                     'trip_id': i,
                     'bus_code': fake.random_int(100, 100 + numOfBus),
-                    'trip_headsign': fake.company(),
-                    'timestamp_stop': fake.date_time_this_year().replace(tzinfo=timezone.utc).timestamp(),
+                    'trip_headsign': fake.company().split(',')[0],
+                    'date_stop': fake.date_this_year(),
+                    'time_stop': fake.time(),
                     'number_of_ticket': fake.random_int(1, 30)
                 }
             )
