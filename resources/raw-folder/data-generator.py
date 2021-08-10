@@ -1,16 +1,30 @@
 import csv
 import os
 import random
-from datetime import datetime
+from datetime import datetime, timezone
 from decimal import Decimal
 from faker import Faker
 import pandas as pd
 import seaborn
 
-def create_bus_stop(output_path, numOfRecords=100, seed_num=0):
-    fake = Faker()
-    Faker.seed(seed_num)
+# Get current folder path
+OUTPUT_PATH = os.path.dirname(os.path.realpath(__file__))
 
+# Set parameters
+SEED_NUM = 0
+NUM_OF_BUS_STOP = 100
+NUM_OF_AGENCY = 20
+NUM_OF_BUS = 60
+NUM_OF_ROUTE = 20
+NUM_OF_STOP_TIME = 10000
+NUM_OF_TRIP = 10000
+NUM_OF_STOP_ROUTE = 100
+
+# Init faker generator
+fake = Faker()
+Faker.seed(SEED_NUM)
+
+def create_bus_stop(output_path, numOfRecords=100):
     filename = output_path+'/bus_stop.csv'
     with open(filename, 'w', newline='') as csvfile:
         fieldnames = ['bus_stop_id', 'name', 'street', 'district', 'latitude', 'longtitude']
@@ -32,12 +46,8 @@ def create_bus_stop(output_path, numOfRecords=100, seed_num=0):
                     'longtitude': fake_location_data[1]
                 }
             )
-    return filename
 
-def create_agency(output_path, numOfRecords=20, seed_num=0):
-    fake = Faker()
-    Faker.seed(seed_num)
-
+def create_agency(output_path, numOfRecords=20):
     filename = output_path+'/agency.csv'
     with open(filename, 'w', newline='') as csvfile:
         fieldnames = ['agency_id', 'name', 'phone_number', 'address', 'operating_hour']
@@ -58,11 +68,8 @@ def create_agency(output_path, numOfRecords=20, seed_num=0):
                     'operating_hour': fake.random_int(8, 10)
                 }
             )
-    return filename
 
-def create_bus(output_path, numOfRecords=60, seed_num=0, numOfRouteID=20):
-    fake = Faker()
-    Faker.seed(seed_num)
+def create_bus(output_path, numOfRecords=60, numOfRouteID=20, seed_num=0):
     random.seed(seed_num)
 
     filename = output_path+'/bus.csv'
@@ -94,12 +101,9 @@ def create_bus(output_path, numOfRecords=60, seed_num=0, numOfRouteID=20):
                     'type': bus_type
                 }
             )
-    return filename, route_dict
+    return route_dict
 
-def create_route(output_path, route_dict, numOfRecords=20, seed_num=0):
-    fake = Faker()
-    Faker.seed(seed_num)
-
+def create_route(output_path, route_dict, numOfRecords=20):
     filename = output_path+'/route.csv'
     with open(filename, 'w', newline='') as csvfile:
         fieldnames = ['route_id', 'agency_id', 'route_name', 'departure_name', 'destination_name', 
@@ -128,12 +132,8 @@ def create_route(output_path, route_dict, numOfRecords=20, seed_num=0):
                     'distance': fake.random_int(1, 15)
                 }
             )
-    return filename
 
-def create_stop_time(output_path, numOfRecords=10000, seed_num=0, numOfBusStop=100):
-    fake = Faker()
-    Faker.seed(seed_num)
-
+def create_stop_time(output_path, numOfRecords=10000, numOfBusStop=100):
     filename = output_path+'/stop_time.csv'
     with open(filename, 'w', newline='') as csvfile:
         fieldnames = ['stop_time_id', 'trip_id', 'bus_stop_id']
@@ -149,12 +149,8 @@ def create_stop_time(output_path, numOfRecords=10000, seed_num=0, numOfBusStop=1
                     'bus_stop_id': fake.random_int(1000, 1000 + numOfBusStop)
                 }
             )
-    return filename
 
-def create_trip(output_path, numOfRecords=10000, seed_num=0, numOfBus=60):
-    fake = Faker()
-    Faker.seed(seed_num)
-
+def create_trip(output_path, numOfRecords=10000, numOfBus=60):
     filename = output_path+'/trip.csv'
     with open(filename, 'w', newline='') as csvfile:
         fieldnames = ['trip_id', 'bus_code', 'trip_headsign', 'timestamp_stop', 'number_of_ticket']
@@ -172,12 +168,8 @@ def create_trip(output_path, numOfRecords=10000, seed_num=0, numOfBus=60):
                     'number_of_ticket': fake.random_int(1, 30)
                 }
             )
-    return filename
 
-def create_stop_route(output_path, numOfRecords=100, seed_num=0, numOfBus=60):
-    fake = Faker()
-    Faker.seed(seed_num)
-
+def create_stop_route(output_path, numOfRecords=100, numOfBus=60, numOfRoute=20):
     filename = output_path+'/stop_route.csv'
     with open(filename, 'w', newline='') as csvfile:
         fieldnames = ['bus_stop_id', 'route_id', 'arrival_time']
@@ -189,8 +181,29 @@ def create_stop_route(output_path, numOfRecords=100, seed_num=0, numOfBus=60):
             writer.writerow(
                 {
                     'bus_stop_id': 1000 + i,
-                    'route_id': i,
+                    'route_id': fake.random_int(1, numOfRoute),
                     'arrival_time': fake.time()
                 }
             )
-    return filename
+
+
+print("Create bus stop")
+create_bus_stop(OUTPUT_PATH, NUM_OF_BUS_STOP)
+
+print("Create agency")
+create_agency(OUTPUT_PATH, NUM_OF_AGENCY)
+
+print("Create bus")
+route_dict = create_bus(OUTPUT_PATH, NUM_OF_BUS, NUM_OF_ROUTE, SEED_NUM)
+
+print("Create route")
+create_route(OUTPUT_PATH, route_dict, NUM_OF_ROUTE)
+
+print("Create stop time")
+create_stop_time(OUTPUT_PATH, NUM_OF_STOP_TIME, NUM_OF_BUS_STOP)
+
+print("Create trip")
+create_trip(OUTPUT_PATH, NUM_OF_TRIP, NUM_OF_BUS)
+
+print("Create stop route")
+create_stop_route(OUTPUT_PATH, NUM_OF_STOP_ROUTE, NUM_OF_BUS, NUM_OF_ROUTE)
