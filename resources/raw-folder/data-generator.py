@@ -47,10 +47,19 @@ def create_bus_stop(output_path, numOfRecords=100):
                 }
             )
 
-def create_agency(output_path, numOfRecords=20):
+def create_agency(output_path, numOfRecords=20, seed_num=0):
+    random.seed(seed_num)
+
     filename = output_path+'/agency.csv'
+
+    time_dict = {
+            '08:00:00': '17:00:00',
+            '06:00:00': '18:00:00',
+            '05:00:00': '19:00:00'
+    }
+
     with open(filename, 'w', newline='') as csvfile:
-        fieldnames = ['agency_id', 'name', 'phone_number', 'address', 'operating_hour']
+        fieldnames = ['agency_id', 'name', 'phone_number', 'address', 'operating_hour_start', 'operating_hour_end']
 
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
@@ -59,13 +68,16 @@ def create_agency(output_path, numOfRecords=20):
             departure_name = fake.street_name()
             destination_name = fake.street_name()
 
+            start_time, end_time = random.choice(list(time_dict.items()))
+
             writer.writerow(
                 {
                     'agency_id': 100 + i,
                     'name': fake.company(),
                     'phone_number': fake.phone_number(),
                     'address': fake.address(),
-                    'operating_hour': fake.random_int(8, 10)
+                    'operating_hour_start': start_time,
+                    'operating_hour_end': end_time
                 }
             )
 
@@ -103,11 +115,20 @@ def create_bus(output_path, numOfRecords=60, numOfRouteID=20, seed_num=0):
             )
     return route_dict
 
-def create_route(output_path, route_dict, numOfRecords=20):
+def create_route(output_path, route_dict, numOfRecords=20, seed_num=0):
+    random.seed(seed_num)
+
     filename = output_path+'/route.csv'
+
+    time_dict = {
+            '08:00:00': '17:00:00',
+            '06:00:00': '18:00:00',
+            '05:00:00': '19:00:00'
+    }
+
     with open(filename, 'w', newline='') as csvfile:
         fieldnames = ['route_id', 'agency_id', 'route_name', 'departure_name', 'destination_name', 
-                      'duration', 'fare', 'frequency', 'number_of_stop', 'number_of_bus', 'operating_hour', 'distance']
+                      'duration', 'fare', 'frequency', 'number_of_stop', 'number_of_bus', 'operating_hour_start', 'operating_hour_end', 'distance']
 
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
@@ -115,6 +136,8 @@ def create_route(output_path, route_dict, numOfRecords=20):
         for i in range(numOfRecords):
             departure_name = fake.street_name()
             destination_name = fake.street_name()
+
+            start_time, end_time = random.choice(list(time_dict.items()))
 
             writer.writerow(
                 {
@@ -128,7 +151,8 @@ def create_route(output_path, route_dict, numOfRecords=20):
                     'frequency': fake.random_int(15, 20),
                     'number_of_stop': fake.random_int(10, 20),
                     'number_of_bus': route_dict[i + 1],
-                    'operating_hour': fake.random_int(12, 16),
+                    'operating_hour_start': start_time,
+                    'operating_hour_end': end_time,
                     'distance': fake.random_int(1, 15)
                 }
             )
@@ -191,13 +215,13 @@ print("Create bus stop")
 create_bus_stop(OUTPUT_PATH, NUM_OF_BUS_STOP)
 
 print("Create agency")
-create_agency(OUTPUT_PATH, NUM_OF_AGENCY)
+create_agency(OUTPUT_PATH, NUM_OF_AGENCY, SEED_NUM)
 
 print("Create bus")
 route_dict = create_bus(OUTPUT_PATH, NUM_OF_BUS, NUM_OF_ROUTE, SEED_NUM)
 
 print("Create route")
-create_route(OUTPUT_PATH, route_dict, NUM_OF_ROUTE)
+create_route(OUTPUT_PATH, route_dict, NUM_OF_ROUTE, SEED_NUM)
 
 print("Create stop time")
 create_stop_time(OUTPUT_PATH, NUM_OF_STOP_TIME, NUM_OF_BUS_STOP)
