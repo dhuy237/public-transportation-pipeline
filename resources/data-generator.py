@@ -5,10 +5,12 @@ from datetime import datetime, timezone
 from decimal import Decimal
 from faker import Faker
 import pandas as pd
-import seaborn
+from distutils.dir_util import copy_tree
 
 # Get current folder path
 OUTPUT_PATH = os.path.dirname(os.path.realpath(__file__))
+OUTPUT_RAW = OUTPUT_PATH + '/raw-folder'
+OUTPUT_WORK = OUTPUT_PATH + '/work-folder'
 
 # Set parameters
 SEED_NUM = 0
@@ -213,22 +215,24 @@ def create_stop_route(output_path, numOfRecords=100, numOfBus=60, numOfRoute=20)
 
 
 print("Create bus stop")
-create_bus_stop(OUTPUT_PATH, NUM_OF_BUS_STOP)
+create_bus_stop(OUTPUT_RAW, NUM_OF_BUS_STOP)
 
 print("Create agency")
-create_agency(OUTPUT_PATH, NUM_OF_AGENCY, SEED_NUM)
+create_agency(OUTPUT_RAW, NUM_OF_AGENCY, SEED_NUM)
 
 print("Create bus")
-route_dict = create_bus(OUTPUT_PATH, NUM_OF_BUS, NUM_OF_ROUTE, SEED_NUM)
+route_dict = create_bus(OUTPUT_RAW, NUM_OF_BUS, NUM_OF_ROUTE, SEED_NUM)
 
 print("Create route")
-create_route(OUTPUT_PATH, route_dict, NUM_OF_ROUTE, SEED_NUM)
+create_route(OUTPUT_RAW, route_dict, NUM_OF_ROUTE, SEED_NUM)
 
 print("Create stop time")
-create_stop_time(OUTPUT_PATH, NUM_OF_STOP_TIME, NUM_OF_BUS_STOP)
+create_stop_time(OUTPUT_RAW, NUM_OF_STOP_TIME, NUM_OF_BUS_STOP)
 
 print("Create trip")
-create_trip(OUTPUT_PATH, NUM_OF_TRIP, NUM_OF_BUS)
+create_trip(OUTPUT_RAW, NUM_OF_TRIP, NUM_OF_BUS)
 
 print("Create stop route")
-create_stop_route(OUTPUT_PATH, NUM_OF_STOP_ROUTE, NUM_OF_BUS, NUM_OF_ROUTE)
+create_stop_route(OUTPUT_RAW, NUM_OF_STOP_ROUTE, NUM_OF_BUS, NUM_OF_ROUTE)
+
+copy_tree(OUTPUT_RAW, OUTPUT_WORK)
