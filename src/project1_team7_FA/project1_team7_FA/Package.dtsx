@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="100"
-  DTS:VersionGUID="{6D9DC3CE-88DA-4397-B22B-C4DED6413D99}">
+  DTS:VersionBuild="101"
+  DTS:VersionGUID="{B554EE66-F177-4FAB-86D8-12E0FAAD4FF7}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -8813,13 +8813,21 @@
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="133.6,41.6"
-          Id="Package\Sequence Container\BUS_STOP"
-          TopLeft="40.299995231629,33.6333362812467" />
+          Size="150.4,41.6"
+          Id="Package\Execute putFile"
+          TopLeft="315.833320783245,1142.40000264486" />
+        <NodeLayout
+          Size="115.2,41.6"
+          Id="Package\ROUTE"
+          TopLeft="320.499993046126,459.300004814465" />
         <NodeLayout
           Size="122.4,41.6"
           Id="Package\Sequence Container\AGENCY"
           TopLeft="286.966656070286,33.8999998346963" />
+        <NodeLayout
+          Size="133.6,41.6"
+          Id="Package\Sequence Container\BUS_STOP"
+          TopLeft="40.299995231629,33.6333362812467" />
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
@@ -8827,6 +8835,21 @@
           Size="496.8,288"
           Id="Package\Sequence Container"
           TopLeft="134.999994635582,57.2000004545853" />
+        <NodeLayout
+          Size="148.8,41.6"
+          Id="Package\Sequence Container 1\STOP_ROUTE"
+          TopLeft="385.099982217948,43.9333362192576" />
+        <NodeLayout
+          Size="137.6,41.6"
+          Id="Package\Sequence Container 1\STOP_TIME"
+          TopLeft="104.23332863119,40.1666669421726" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="645.6,146.4"
+          Size="645.6,189.6"
+          Id="Package\Sequence Container 1"
+          TopLeft="62.4999975164735,874.93333630191" />
         <NodeLayout
           Size="116,41.6"
           Id="Package\Sequence Container 2\BUS"
@@ -8842,10 +8865,6 @@
           Size="529.6,170.4"
           Id="Package\Sequence Container 2"
           TopLeft="118.333328631189,617.733337892956" />
-        <NodeLayout
-          Size="115.2,41.6"
-          Id="Package\ROUTE"
-          TopLeft="320.499993046126,459.300004814465" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
           TopLeft="380.749993840854,345.200000454585">
@@ -8890,21 +8909,6 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="137.6,41.6"
-          Id="Package\Sequence Container 1\STOP_TIME"
-          TopLeft="104.23332863119,40.1666669421726" />
-        <NodeLayout
-          Size="148.8,41.6"
-          Id="Package\Sequence Container 1\STOP_ROUTE"
-          TopLeft="385.099982217948,43.9333362192576" />
-        <ContainerLayout
-          HeaderHeight="43"
-          IsExpanded="True"
-          PanelSize="645.6,146.4"
-          Size="645.6,189.6"
-          Id="Package\Sequence Container 1"
-          TopLeft="62.4999975164735,874.93333630191" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
           TopLeft="384.216663073831,788.133337892956">
@@ -8927,10 +8931,6 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="150.4,41.6"
-          Id="Package\Execute putFile"
-          TopLeft="315.833320783245,1142.40000264486" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 3]"
           TopLeft="388.166659149859,1064.53333630191">
@@ -9128,842 +9128,6 @@
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
-  <TaskHost
-    design-time-name="Package\Sequence Container\AGENCY">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
-        <NodeLayout
-          Size="145.6,41.6"
-          Id="Package\Sequence Container\AGENCY\Agency flat file"
-          TopLeft="235.166666600439,4.63333332644553" />
-        <NodeLayout
-          Size="156,41.6"
-          Id="Package\Sequence Container\AGENCY\Data Conversion"
-          TopLeft="231.1,107.1" />
-        <EdgeLayout
-          Id="Package\Sequence Container\AGENCY.Paths[Flat File Source Output]"
-          TopLeft="308.53333330022,46.2333333264455">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,60.8666666735542"
-              Start="0,0"
-              End="0,53.3666666735542">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,53.3666666735542" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="208,41.6"
-          Id="Package\Sequence Container\AGENCY\Slowly Changing Dimension"
-          TopLeft="205.93333330022,209.566666673554" />
-        <EdgeLayout
-          Id="Package\Sequence Container\AGENCY.Paths[Data Conversion Output]"
-          TopLeft="309.51666665011,148.7">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,60.8666666735543"
-              Start="0,0"
-              End="0,53.3666666735543">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,53.3666666735543" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="122.4,41.6"
-          Id="Package\Sequence Container\AGENCY\AGENCY"
-          TopLeft="42.9999985098841,329.366666818195" />
-        <EdgeLayout
-          Id="Package\Sequence Container\AGENCY.Paths[New Output]"
-          TopLeft="276.599999966886,251.166666673554">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-172.400001457002,78.2000001446406"
-              Start="0,0"
-              End="-172.400001457002,70.7000001446406">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,27.63816799745" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,27.63816799745"
-                    Point2="0,31.63816799745"
-                    Point3="-4,31.63816799745" />
-                  <mssgle:LineSegment
-                    End="-168.400001457002,31.63816799745" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-168.400001457002,31.63816799745"
-                    Point2="-172.400001457002,31.63816799745"
-                    Point3="-172.400001457002,35.63816799745" />
-                  <mssgle:LineSegment
-                    End="-172.400001457002,70.7000001446406" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-113.291387447251,36.63816799745,54.1827734375,11.43359375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="167.2,41.6"
-          Id="Package\Sequence Container\AGENCY\OLE DB Command"
-          TopLeft="225.5,310.3" />
-        <EdgeLayout
-          Id="Package\Sequence Container\AGENCY.Paths[Changing Attribute Updates Output]"
-          TopLeft="343.266666633553,251.166666673554">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-34.166666633553,59.1333333264457"
-              Start="0,0"
-              End="-34.166666633553,51.6333333264457">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,19.9241730252032" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,19.9241730252032"
-                    Point2="0,23.9241730252032"
-                    Point3="-4,23.9241730252032" />
-                  <mssgle:LineSegment
-                    End="-30.166666633553,23.9241730252032" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-30.166666633553,23.9241730252032"
-                    Point2="-34.166666633553,23.9241730252032"
-                    Point3="-34.166666633553,27.9241730252032" />
-                  <mssgle:LineSegment
-                    End="-34.166666633553,51.6333333264457" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-95.6172395667765,28.9241730252032,157.0678125,11.6630859375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="140.8,41.6"
-          Id="Package\Sequence Container\AGENCY\Agency_error"
-          TopLeft="530.833312239913,106.600000847181" />
-        <EdgeLayout
-          Id="Package\Sequence Container\AGENCY.Paths[Data Conversion Error Output]"
-          TopLeft="387.1,127.65000042359">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="143.733312239913,0"
-              Start="0,0"
-              End="136.233312239913,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="136.233312239913,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="2.03026940120631,5,132.1727734375,11.43359375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-      </GraphLayout>
-    </LayoutInfo>
-  </TaskHost>
-  <TaskHost
-    design-time-name="Package\Sequence Container 2\BUS">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
-        <NodeLayout
-          Size="128.8,41.6"
-          Id="Package\Sequence Container 2\BUS\Bus flat file"
-          TopLeft="244.7,5.49999999999984" />
-        <NodeLayout
-          Size="208,41.6"
-          Id="Package\Sequence Container 2\BUS\Slowly Changing Dimension"
-          TopLeft="205.1,208.7" />
-        <NodeLayout
-          Size="156,41.6"
-          Id="Package\Sequence Container 2\BUS\Data Conversion"
-          TopLeft="231.1,107.1" />
-        <EdgeLayout
-          Id="Package\Sequence Container 2\BUS.Paths[Flat File Source Output]"
-          TopLeft="309.1,47.0999999999998">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,59.9999999999999"
-              Start="0,0"
-              End="0,52.4999999999999">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,52.4999999999999" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Sequence Container 2\BUS.Paths[Data Conversion Output]"
-          TopLeft="309.1,148.7">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,60"
-              Start="0,0"
-              End="0,52.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,52.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="100,41.6"
-          Id="Package\Sequence Container 2\BUS\BUS"
-          TopLeft="5.50000000000009,310.3" />
-        <EdgeLayout
-          Id="Package\Sequence Container 2\BUS.Paths[New Output]"
-          TopLeft="275.766666666667,250.3">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-220.266666666667,60"
-              Start="0,0"
-              End="-220.266666666667,52.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,20.2748091603053" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,20.2748091603053"
-                    Point2="0,24.2748091603053"
-                    Point3="-4,24.2748091603053" />
-                  <mssgle:LineSegment
-                    End="-216.266666666667,24.2748091603053" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-216.266666666667,24.2748091603053"
-                    Point2="-220.266666666667,24.2748091603053"
-                    Point3="-220.266666666667,28.2748091603053" />
-                  <mssgle:LineSegment
-                    End="-220.266666666667,52.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-137.224720052083,29.2748091603053,54.1827734375,11.43359375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="167.2,41.6"
-          Id="Package\Sequence Container 2\BUS\OLE DB Command"
-          TopLeft="225.5,310.3" />
-        <EdgeLayout
-          Id="Package\Sequence Container 2\BUS.Paths[Changing Attribute Updates Output]"
-          TopLeft="342.433333333333,250.3">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-33.3333333333333,60"
-              Start="0,0"
-              End="-33.3333333333333,52.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,20.2748091603054" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,20.2748091603054"
-                    Point2="0,24.2748091603054"
-                    Point3="-4,24.2748091603054" />
-                  <mssgle:LineSegment
-                    End="-29.3333333333333,24.2748091603054" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-29.3333333333333,24.2748091603054"
-                    Point2="-33.3333333333333,24.2748091603054"
-                    Point3="-33.3333333333333,28.2748091603054" />
-                  <mssgle:LineSegment
-                    End="-33.3333333333333,52.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-95.2005729166667,29.2748091603054,157.0678125,11.6630859375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="124,41.6"
-          Id="Package\Sequence Container 2\BUS\Bus_error"
-          TopLeft="554,109" />
-        <EdgeLayout
-          Id="Package\Sequence Container 2\BUS.Paths[Data Conversion Error Output]"
-          TopLeft="387.1,128.85">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="166.9,0"
-              Start="0,0"
-              End="159.4,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="159.4,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="13.61361328125,5,132.1727734375,11.43359375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-      </GraphLayout>
-    </LayoutInfo>
-  </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\Sequence Container 2\BUS\Slowly Changing Dimension">
-    <Properties>
-      <Property>
-        <Name>SCDMetadata</Name>
-        <Value
-          type="q2:string">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SCDWizardMetadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionID&gt;{BA804AD0-4019-44C3-9804-1406EE4168F1}&lt;/ConnectionID&gt;
-  &lt;TableName&gt;[Agency].[Bus]&lt;/TableName&gt;
-  &lt;InputToColumnsCollection&gt;
-    &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[bus_code_convert]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;bus_code&lt;/ColumnName&gt;
-      &lt;KeyType&gt;BusinessKey&lt;/KeyType&gt;
-      &lt;ChangeType&gt;None&lt;/ChangeType&gt;
-    &lt;/InputColumnToDBColumn&gt;
-    &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[number_of_seat_convert]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;number_of_seat&lt;/ColumnName&gt;
-      &lt;KeyType&gt;None&lt;/KeyType&gt;
-      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
-    &lt;/InputColumnToDBColumn&gt;
-    &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[route_id_convert]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;route_id&lt;/ColumnName&gt;
-      &lt;KeyType&gt;None&lt;/KeyType&gt;
-      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
-    &lt;/InputColumnToDBColumn&gt;
-    &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Bus flat file.Outputs[Flat File Source Output].Columns[type]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;type&lt;/ColumnName&gt;
-      &lt;KeyType&gt;None&lt;/KeyType&gt;
-      &lt;ChangeType&gt;None&lt;/ChangeType&gt;
-    &lt;/InputColumnToDBColumn&gt;
-  &lt;/InputToColumnsCollection&gt;
-  &lt;GeneratedComponentsIdentificationStrings&gt;
-    &lt;anyType xsi:type="xsd:string"&gt;Insert Destination&lt;/anyType&gt;
-    &lt;anyType xsi:type="xsd:string"&gt;OLE DB Command&lt;/anyType&gt;
-  &lt;/GeneratedComponentsIdentificationStrings&gt;
-  &lt;FailFixedAttribute&gt;false&lt;/FailFixedAttribute&gt;
-  &lt;FailChangeAttribute&gt;true&lt;/FailChangeAttribute&gt;
-  &lt;UseStartEndDate&gt;false&lt;/UseStartEndDate&gt;
-  &lt;CurrentIndicatorColumn /&gt;
-  &lt;InferredIndicatorColumn /&gt;
-  &lt;ValueCurrent&gt;Current&lt;/ValueCurrent&gt;
-  &lt;ValueExpired&gt;Expired&lt;/ValueExpired&gt;
-  &lt;StartDateColumn /&gt;
-  &lt;EndDateColumn /&gt;
-  &lt;DateVariable /&gt;
-  &lt;EnableInferredSupport&gt;false&lt;/EnableInferredSupport&gt;
-&lt;/SCDWizardMetadata&gt;</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <TaskHost
-    design-time-name="Package\Sequence Container\BUS_STOP">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
-        <NodeLayout
-          Size="208,41.6"
-          Id="Package\Sequence Container\BUS_STOP\Slowly Changing Dimension"
-          TopLeft="205.1,208.7" />
-        <NodeLayout
-          Size="152,41.6"
-          Id="Package\Sequence Container\BUS_STOP\Bus stop flat file"
-          TopLeft="233.1,5.49999999999995" />
-        <NodeLayout
-          Size="156,41.6"
-          Id="Package\Sequence Container\BUS_STOP\Data Conversion"
-          TopLeft="233.1,109.1" />
-        <EdgeLayout
-          Id="Package\Sequence Container\BUS_STOP.Paths[Flat File Source Output]"
-          TopLeft="310.1,47.1">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,61.9999999999999"
-              Start="0,0"
-              End="0,54.4999999999999">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,54.4999999999999" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Sequence Container\BUS_STOP.Paths[Data Conversion Output]"
-          TopLeft="310.1,150.7">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,58"
-              Start="0,0"
-              End="0,50.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,50.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="131.2,41.6"
-          Id="Package\Sequence Container\BUS_STOP\BUS STOP"
-          TopLeft="5.50000000000009,310.3" />
-        <EdgeLayout
-          Id="Package\Sequence Container\BUS_STOP.Paths[New Output]"
-          TopLeft="275.766666666667,250.3">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-204.666666666667,60"
-              Start="0,0"
-              End="-204.666666666667,52.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,20.2748091603054" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,20.2748091603054"
-                    Point2="0,24.2748091603054"
-                    Point3="-4,24.2748091603054" />
-                  <mssgle:LineSegment
-                    End="-200.666666666667,24.2748091603054" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-200.666666666667,24.2748091603054"
-                    Point2="-204.666666666667,24.2748091603054"
-                    Point3="-204.666666666667,28.2748091603054" />
-                  <mssgle:LineSegment
-                    End="-204.666666666667,52.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-129.424720052083,29.2748091603054,54.1827734375,11.43359375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="167.2,41.6"
-          Id="Package\Sequence Container\BUS_STOP\OLE DB Command"
-          TopLeft="225.5,310.3" />
-        <EdgeLayout
-          Id="Package\Sequence Container\BUS_STOP.Paths[Changing Attribute Updates Output]"
-          TopLeft="342.433333333333,250.3">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-33.3333333333333,60"
-              Start="0,0"
-              End="-33.3333333333333,52.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,20.2748091603054" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,20.2748091603054"
-                    Point2="0,24.2748091603054"
-                    Point3="-4,24.2748091603054" />
-                  <mssgle:LineSegment
-                    End="-29.3333333333333,24.2748091603054" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-29.3333333333333,24.2748091603054"
-                    Point2="-33.3333333333333,24.2748091603054"
-                    Point3="-33.3333333333333,28.2748091603054" />
-                  <mssgle:LineSegment
-                    End="-33.3333333333333,52.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-95.2005729166667,29.2748091603054,157.0678125,11.6630859375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="146.4,41.6"
-          Id="Package\Sequence Container\BUS_STOP\BusStop_Error"
-          TopLeft="539,110" />
-        <EdgeLayout
-          Id="Package\Sequence Container\BUS_STOP.Paths[Data Conversion Error Output]"
-          TopLeft="389.1,130.35">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="149.9,0"
-              Start="0,0"
-              End="142.4,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="142.4,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="5.11361328125,5,132.1727734375,11.43359375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-      </GraphLayout>
-    </LayoutInfo>
-  </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\Sequence Container\BUS_STOP\Slowly Changing Dimension">
-    <Properties>
-      <Property>
-        <Name>SCDMetadata</Name>
-        <Value
-          type="q2:string">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SCDWizardMetadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionID&gt;{BA804AD0-4019-44C3-9804-1406EE4168F1}&lt;/ConnectionID&gt;
-  &lt;TableName&gt;[Schedule].[BusStop]&lt;/TableName&gt;
-  &lt;InputToColumnsCollection&gt;
-    &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[bus_stop_id_convert]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;bus_stop_id&lt;/ColumnName&gt;
-      &lt;KeyType&gt;BusinessKey&lt;/KeyType&gt;
-      &lt;ChangeType&gt;None&lt;/ChangeType&gt;
-    &lt;/InputColumnToDBColumn&gt;
-    &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[district_convert]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;district&lt;/ColumnName&gt;
-      &lt;KeyType&gt;None&lt;/KeyType&gt;
-      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
-    &lt;/InputColumnToDBColumn&gt;
-    &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[latitude_convert]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;latitude&lt;/ColumnName&gt;
-      &lt;KeyType&gt;None&lt;/KeyType&gt;
-      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
-    &lt;/InputColumnToDBColumn&gt;
-    &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[longtitude_convert]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;longtitude&lt;/ColumnName&gt;
-      &lt;KeyType&gt;None&lt;/KeyType&gt;
-      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
-    &lt;/InputColumnToDBColumn&gt;
-    &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Bus stop flat file.Outputs[Flat File Source Output].Columns[name]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;name&lt;/ColumnName&gt;
-      &lt;KeyType&gt;None&lt;/KeyType&gt;
-      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
-    &lt;/InputColumnToDBColumn&gt;
-    &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Bus stop flat file.Outputs[Flat File Source Output].Columns[street]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;street&lt;/ColumnName&gt;
-      &lt;KeyType&gt;None&lt;/KeyType&gt;
-      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
-    &lt;/InputColumnToDBColumn&gt;
-  &lt;/InputToColumnsCollection&gt;
-  &lt;GeneratedComponentsIdentificationStrings&gt;
-    &lt;anyType xsi:type="xsd:string"&gt;Insert Destination&lt;/anyType&gt;
-    &lt;anyType xsi:type="xsd:string"&gt;OLE DB Command&lt;/anyType&gt;
-  &lt;/GeneratedComponentsIdentificationStrings&gt;
-  &lt;FailFixedAttribute&gt;false&lt;/FailFixedAttribute&gt;
-  &lt;FailChangeAttribute&gt;true&lt;/FailChangeAttribute&gt;
-  &lt;UseStartEndDate&gt;false&lt;/UseStartEndDate&gt;
-  &lt;CurrentIndicatorColumn /&gt;
-  &lt;InferredIndicatorColumn /&gt;
-  &lt;ValueCurrent /&gt;
-  &lt;ValueExpired /&gt;
-  &lt;StartDateColumn /&gt;
-  &lt;EndDateColumn /&gt;
-  &lt;DateVariable /&gt;
-  &lt;EnableInferredSupport&gt;false&lt;/EnableInferredSupport&gt;
-&lt;/SCDWizardMetadata&gt;</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <TaskHost
-    design-time-name="Package\Sequence Container 1\STOP_TIME">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
-        <NodeLayout
-          Size="156,41.6"
-          Id="Package\Sequence Container 1\STOP_TIME\StopTime flat file"
-          TopLeft="233.5,5.49999999999984" />
-        <NodeLayout
-          Size="156,41.6"
-          Id="Package\Sequence Container 1\STOP_TIME\Data Conversion"
-          TopLeft="232.1,108.1" />
-        <EdgeLayout
-          Id="Package\Sequence Container 1\STOP_TIME.Paths[Flat File Source Output]"
-          TopLeft="310.8,47.0999999999998">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,61.0000000000002"
-              Start="0,0"
-              End="0,53.5000000000002">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,53.5000000000002" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="134.4,41.6"
-          Id="Package\Sequence Container 1\STOP_TIME\STOP TIME"
-          TopLeft="245,217" />
-        <EdgeLayout
-          Id="Package\Sequence Container 1\STOP_TIME.Paths[Data Conversion Output]"
-          TopLeft="311.15,149.7">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,67.2999999999999"
-              Start="0,0"
-              End="0,59.7999999999999">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,59.7999999999999" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="152,41.6"
-          Id="Package\Sequence Container 1\STOP_TIME\StopTime_Error"
-          TopLeft="531,218" />
-        <EdgeLayout
-          Id="Package\Sequence Container 1\STOP_TIME.Paths[OLE DB Destination Error Output]"
-          TopLeft="379.4,238.3">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="151.6,0"
-              Start="0,0"
-              End="144.1,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="144.1,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-1.15890625000004,5,146.4178125,11.43359375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-      </GraphLayout>
-    </LayoutInfo>
-  </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\Sequence Container\BUS_STOP\BUS STOP">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Sequence Container 2\BUS\BUS">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Sequence Container\AGENCY\Slowly Changing Dimension">
-    <Properties>
-      <Property>
-        <Name>SCDMetadata</Name>
-        <Value
-          type="q2:string">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SCDWizardMetadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionID&gt;{BA804AD0-4019-44C3-9804-1406EE4168F1}&lt;/ConnectionID&gt;
-  &lt;TableName&gt;[Agency].[Agency]&lt;/TableName&gt;
-  &lt;InputToColumnsCollection&gt;
-    &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[address_convert]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;address&lt;/ColumnName&gt;
-      &lt;KeyType&gt;None&lt;/KeyType&gt;
-      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
-    &lt;/InputColumnToDBColumn&gt;
-    &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[agency_id_convert]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;agency_id&lt;/ColumnName&gt;
-      &lt;KeyType&gt;BusinessKey&lt;/KeyType&gt;
-      &lt;ChangeType&gt;None&lt;/ChangeType&gt;
-    &lt;/InputColumnToDBColumn&gt;
-    &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[name_convert]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;name&lt;/ColumnName&gt;
-      &lt;KeyType&gt;None&lt;/KeyType&gt;
-      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
-    &lt;/InputColumnToDBColumn&gt;
-    &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[operating_hour_end_convert]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;operating_hour_end&lt;/ColumnName&gt;
-      &lt;KeyType&gt;None&lt;/KeyType&gt;
-      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
-    &lt;/InputColumnToDBColumn&gt;
-    &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[operating_hour_start_convert]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;operating_hour_start&lt;/ColumnName&gt;
-      &lt;KeyType&gt;None&lt;/KeyType&gt;
-      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
-    &lt;/InputColumnToDBColumn&gt;
-    &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[phone_number_convert]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;phone_number&lt;/ColumnName&gt;
-      &lt;KeyType&gt;None&lt;/KeyType&gt;
-      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
-    &lt;/InputColumnToDBColumn&gt;
-  &lt;/InputToColumnsCollection&gt;
-  &lt;GeneratedComponentsIdentificationStrings&gt;
-    &lt;anyType xsi:type="xsd:string"&gt;Insert Destination&lt;/anyType&gt;
-    &lt;anyType xsi:type="xsd:string"&gt;OLE DB Command&lt;/anyType&gt;
-  &lt;/GeneratedComponentsIdentificationStrings&gt;
-  &lt;FailFixedAttribute&gt;false&lt;/FailFixedAttribute&gt;
-  &lt;FailChangeAttribute&gt;true&lt;/FailChangeAttribute&gt;
-  &lt;UseStartEndDate&gt;false&lt;/UseStartEndDate&gt;
-  &lt;CurrentIndicatorColumn /&gt;
-  &lt;InferredIndicatorColumn /&gt;
-  &lt;ValueCurrent /&gt;
-  &lt;ValueExpired /&gt;
-  &lt;StartDateColumn /&gt;
-  &lt;EndDateColumn /&gt;
-  &lt;DateVariable /&gt;
-  &lt;EnableInferredSupport&gt;false&lt;/EnableInferredSupport&gt;
-&lt;/SCDWizardMetadata&gt;</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Sequence Container\AGENCY\AGENCY">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\ROUTE\Slowly Changing Dimension">
     <Properties>
@@ -10086,8 +9250,247 @@
       </Property>
     </Properties>
   </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Sequence Container\AGENCY">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="145.6,41.6"
+          Id="Package\Sequence Container\AGENCY\Agency flat file"
+          TopLeft="235.166666600439,4.63333332644553" />
+        <NodeLayout
+          Size="140.8,41.6"
+          Id="Package\Sequence Container\AGENCY\Agency_error"
+          TopLeft="530.833312239913,106.600000847181" />
+        <NodeLayout
+          Size="208,41.6"
+          Id="Package\Sequence Container\AGENCY\Slowly Changing Dimension"
+          TopLeft="205.93333330022,209.566666673554" />
+        <NodeLayout
+          Size="167.2,41.6"
+          Id="Package\Sequence Container\AGENCY\OLE DB Command"
+          TopLeft="225.5,310.3" />
+        <NodeLayout
+          Size="122.4,41.6"
+          Id="Package\Sequence Container\AGENCY\AGENCY"
+          TopLeft="42.9999985098841,329.366666818195" />
+        <NodeLayout
+          Size="156,41.6"
+          Id="Package\Sequence Container\AGENCY\Data Conversion"
+          TopLeft="231.1,107.1" />
+        <EdgeLayout
+          Id="Package\Sequence Container\AGENCY.Paths[New Output]"
+          TopLeft="276.599999966886,251.166666673554">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-172.400001457002,78.2000001446406"
+              Start="0,0"
+              End="-172.400001457002,70.7000001446406">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.63816799745" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,27.63816799745"
+                    Point2="0,31.63816799745"
+                    Point3="-4,31.63816799745" />
+                  <mssgle:LineSegment
+                    End="-168.400001457002,31.63816799745" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-168.400001457002,31.63816799745"
+                    Point2="-172.400001457002,31.63816799745"
+                    Point3="-172.400001457002,35.63816799745" />
+                  <mssgle:LineSegment
+                    End="-172.400001457002,70.7000001446406" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-113.291387447251,36.63816799745,54.1827734375,11.43359375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container\AGENCY.Paths[Flat File Source Output]"
+          TopLeft="308.53333330022,46.2333333264455">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60.8666666735542"
+              Start="0,0"
+              End="0,53.3666666735542">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,53.3666666735542" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container\AGENCY.Paths[Data Conversion Output]"
+          TopLeft="309.51666665011,148.7">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60.8666666735543"
+              Start="0,0"
+              End="0,53.3666666735543">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,53.3666666735543" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container\AGENCY.Paths[Data Conversion Error Output]"
+          TopLeft="387.1,127.65000042359">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="143.733312239913,0"
+              Start="0,0"
+              End="136.233312239913,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="136.233312239913,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="2.03026940120631,5,132.1727734375,11.43359375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container\AGENCY.Paths[Changing Attribute Updates Output]"
+          TopLeft="343.266666633553,251.166666673554">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-34.166666633553,59.1333333264457"
+              Start="0,0"
+              End="-34.166666633553,51.6333333264457">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.9241730252032" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,19.9241730252032"
+                    Point2="0,23.9241730252032"
+                    Point3="-4,23.9241730252032" />
+                  <mssgle:LineSegment
+                    End="-30.166666633553,23.9241730252032" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-30.166666633553,23.9241730252032"
+                    Point2="-34.166666633553,23.9241730252032"
+                    Point3="-34.166666633553,27.9241730252032" />
+                  <mssgle:LineSegment
+                    End="-34.166666633553,51.6333333264457" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-95.6172395667765,28.9241730252032,157.0678125,11.6630859375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Sequence Container 1\STOP_TIME\STOP TIME">
+    design-time-name="Package\Sequence Container\AGENCY\Slowly Changing Dimension">
+    <Properties>
+      <Property>
+        <Name>SCDMetadata</Name>
+        <Value
+          type="q2:string">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SCDWizardMetadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionID&gt;{BA804AD0-4019-44C3-9804-1406EE4168F1}&lt;/ConnectionID&gt;
+  &lt;TableName&gt;[Agency].[Agency]&lt;/TableName&gt;
+  &lt;InputToColumnsCollection&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[address_convert]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;address&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[agency_id_convert]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;agency_id&lt;/ColumnName&gt;
+      &lt;KeyType&gt;BusinessKey&lt;/KeyType&gt;
+      &lt;ChangeType&gt;None&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[name_convert]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;name&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[operating_hour_end_convert]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;operating_hour_end&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[operating_hour_start_convert]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;operating_hour_start&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[phone_number_convert]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;phone_number&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+  &lt;/InputToColumnsCollection&gt;
+  &lt;GeneratedComponentsIdentificationStrings&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;Insert Destination&lt;/anyType&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;OLE DB Command&lt;/anyType&gt;
+  &lt;/GeneratedComponentsIdentificationStrings&gt;
+  &lt;FailFixedAttribute&gt;false&lt;/FailFixedAttribute&gt;
+  &lt;FailChangeAttribute&gt;true&lt;/FailChangeAttribute&gt;
+  &lt;UseStartEndDate&gt;false&lt;/UseStartEndDate&gt;
+  &lt;CurrentIndicatorColumn /&gt;
+  &lt;InferredIndicatorColumn /&gt;
+  &lt;ValueCurrent /&gt;
+  &lt;ValueExpired /&gt;
+  &lt;StartDateColumn /&gt;
+  &lt;EndDateColumn /&gt;
+  &lt;DateVariable /&gt;
+  &lt;EnableInferredSupport&gt;false&lt;/EnableInferredSupport&gt;
+&lt;/SCDWizardMetadata&gt;</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\AGENCY\AGENCY">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -10100,91 +9503,171 @@
     </Properties>
   </PipelineComponentMetadata>
   <TaskHost
-    design-time-name="Package\Sequence Container 2\TRIP">
+    design-time-name="Package\Sequence Container\BUS_STOP">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="129.6,41.6"
-          Id="Package\Sequence Container 2\TRIP\Trip flat file"
-          TopLeft="461,99" />
+          Size="152,41.6"
+          Id="Package\Sequence Container\BUS_STOP\Bus stop flat file"
+          TopLeft="233.1,5.49999999999995" />
+        <NodeLayout
+          Size="146.4,41.6"
+          Id="Package\Sequence Container\BUS_STOP\BusStop_Error"
+          TopLeft="539,110" />
+        <NodeLayout
+          Size="208,41.6"
+          Id="Package\Sequence Container\BUS_STOP\Slowly Changing Dimension"
+          TopLeft="205.1,208.7" />
+        <NodeLayout
+          Size="167.2,41.6"
+          Id="Package\Sequence Container\BUS_STOP\OLE DB Command"
+          TopLeft="225.5,310.3" />
+        <NodeLayout
+          Size="131.2,41.6"
+          Id="Package\Sequence Container\BUS_STOP\BUS STOP"
+          TopLeft="5.50000000000009,310.3" />
         <NodeLayout
           Size="156,41.6"
-          Id="Package\Sequence Container 2\TRIP\Data Conversion"
-          TopLeft="454,216" />
+          Id="Package\Sequence Container\BUS_STOP\Data Conversion"
+          TopLeft="233.1,109.1" />
         <EdgeLayout
-          Id="Package\Sequence Container 2\TRIP.Paths[Flat File Source Output]"
-          TopLeft="528.9,140.6">
+          Id="Package\Sequence Container\BUS_STOP.Paths[New Output]"
+          TopLeft="275.766666666667,250.3">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,75.4000000000001"
+              EndConnector="-204.666666666667,60"
               Start="0,0"
-              End="0,67.9000000000001">
+              End="-204.666666666667,52.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,67.9000000000001" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="102.4,41.6"
-          Id="Package\Sequence Container 2\TRIP\TRIP"
-          TopLeft="487,336" />
-        <EdgeLayout
-          Id="Package\Sequence Container 2\TRIP.Paths[Data Conversion Output]"
-          TopLeft="535.1,257.6">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,78.3999999999999"
-              Start="0,0"
-              End="0,70.8999999999999">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
+                    End="0,20.2748091603054" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.2748091603054"
+                    Point2="0,24.2748091603054"
+                    Point3="-4,24.2748091603054" />
                   <mssgle:LineSegment
-                    End="0,70.8999999999999" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="125.6,41.6"
-          Id="Package\Sequence Container 2\TRIP\Trip_Error"
-          TopLeft="777,340" />
-        <EdgeLayout
-          Id="Package\Sequence Container 2\TRIP.Paths[OLE DB Destination Error Output]"
-          TopLeft="589.4,358.8">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="187.6,0"
-              Start="0,0"
-              End="180.1,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
+                    End="-200.666666666667,24.2748091603054" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-200.666666666667,24.2748091603054"
+                    Point2="-204.666666666667,24.2748091603054"
+                    Point3="-204.666666666667,28.2748091603054" />
                   <mssgle:LineSegment
-                    End="180.1,0" />
+                    End="-204.666666666667,52.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="16.8410937500001,5,146.4178125,11.43359375"
+              BoundingBox="-129.424720052083,29.2748091603054,54.1827734375,11.43359375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container\BUS_STOP.Paths[Flat File Source Output]"
+          TopLeft="310.1,47.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,61.9999999999999"
+              Start="0,0"
+              End="0,54.4999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,54.4999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container\BUS_STOP.Paths[Data Conversion Output]"
+          TopLeft="310.1,150.7">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58"
+              Start="0,0"
+              End="0,50.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container\BUS_STOP.Paths[Data Conversion Error Output]"
+          TopLeft="389.1,130.35">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="149.9,0"
+              Start="0,0"
+              End="142.4,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="142.4,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="5.11361328125,5,132.1727734375,11.43359375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container\BUS_STOP.Paths[Changing Attribute Updates Output]"
+          TopLeft="342.433333333333,250.3">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-33.3333333333333,60"
+              Start="0,0"
+              End="-33.3333333333333,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.2748091603054" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.2748091603054"
+                    Point2="0,24.2748091603054"
+                    Point3="-4,24.2748091603054" />
+                  <mssgle:LineSegment
+                    End="-29.3333333333333,24.2748091603054" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-29.3333333333333,24.2748091603054"
+                    Point2="-33.3333333333333,24.2748091603054"
+                    Point3="-33.3333333333333,28.2748091603054" />
+                  <mssgle:LineSegment
+                    End="-33.3333333333333,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-95.2005729166667,29.2748091603054,157.0678125,11.6630859375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -10192,7 +9675,74 @@
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Sequence Container 2\TRIP\TRIP">
+    design-time-name="Package\Sequence Container\BUS_STOP\Slowly Changing Dimension">
+    <Properties>
+      <Property>
+        <Name>SCDMetadata</Name>
+        <Value
+          type="q2:string">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SCDWizardMetadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionID&gt;{BA804AD0-4019-44C3-9804-1406EE4168F1}&lt;/ConnectionID&gt;
+  &lt;TableName&gt;[Schedule].[BusStop]&lt;/TableName&gt;
+  &lt;InputToColumnsCollection&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[bus_stop_id_convert]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;bus_stop_id&lt;/ColumnName&gt;
+      &lt;KeyType&gt;BusinessKey&lt;/KeyType&gt;
+      &lt;ChangeType&gt;None&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[district_convert]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;district&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[latitude_convert]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;latitude&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[longtitude_convert]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;longtitude&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Bus stop flat file.Outputs[Flat File Source Output].Columns[name]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;name&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Bus stop flat file.Outputs[Flat File Source Output].Columns[street]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;street&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+  &lt;/InputToColumnsCollection&gt;
+  &lt;GeneratedComponentsIdentificationStrings&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;Insert Destination&lt;/anyType&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;OLE DB Command&lt;/anyType&gt;
+  &lt;/GeneratedComponentsIdentificationStrings&gt;
+  &lt;FailFixedAttribute&gt;false&lt;/FailFixedAttribute&gt;
+  &lt;FailChangeAttribute&gt;true&lt;/FailChangeAttribute&gt;
+  &lt;UseStartEndDate&gt;false&lt;/UseStartEndDate&gt;
+  &lt;CurrentIndicatorColumn /&gt;
+  &lt;InferredIndicatorColumn /&gt;
+  &lt;ValueCurrent /&gt;
+  &lt;ValueExpired /&gt;
+  &lt;StartDateColumn /&gt;
+  &lt;EndDateColumn /&gt;
+  &lt;DateVariable /&gt;
+  &lt;EnableInferredSupport&gt;false&lt;/EnableInferredSupport&gt;
+&lt;/SCDWizardMetadata&gt;</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\BUS_STOP\BUS STOP">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -10298,6 +9848,456 @@
   </TaskHost>
   <PipelineComponentMetadata
     design-time-name="Package\Sequence Container 1\STOP_ROUTE\STOP_ROUTE">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Sequence Container 1\STOP_TIME">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="156,41.6"
+          Id="Package\Sequence Container 1\STOP_TIME\StopTime flat file"
+          TopLeft="233.5,5.49999999999984" />
+        <NodeLayout
+          Size="156,41.6"
+          Id="Package\Sequence Container 1\STOP_TIME\Data Conversion"
+          TopLeft="232.1,108.1" />
+        <EdgeLayout
+          Id="Package\Sequence Container 1\STOP_TIME.Paths[Flat File Source Output]"
+          TopLeft="310.8,47.0999999999998">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,61.0000000000002"
+              Start="0,0"
+              End="0,53.5000000000002">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,53.5000000000002" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="134.4,41.6"
+          Id="Package\Sequence Container 1\STOP_TIME\STOP TIME"
+          TopLeft="245,217" />
+        <EdgeLayout
+          Id="Package\Sequence Container 1\STOP_TIME.Paths[Data Conversion Output]"
+          TopLeft="311.15,149.7">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,67.2999999999999"
+              Start="0,0"
+              End="0,59.7999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,59.7999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="152,41.6"
+          Id="Package\Sequence Container 1\STOP_TIME\StopTime_Error"
+          TopLeft="531,218" />
+        <EdgeLayout
+          Id="Package\Sequence Container 1\STOP_TIME.Paths[OLE DB Destination Error Output]"
+          TopLeft="379.4,238.3">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="151.6,0"
+              Start="0,0"
+              End="144.1,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="144.1,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-1.15890625000004,5,146.4178125,11.43359375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container 1\STOP_TIME\STOP TIME">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Sequence Container 2\BUS">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="100,41.6"
+          Id="Package\Sequence Container 2\BUS\BUS"
+          TopLeft="5.50000000000009,310.3" />
+        <NodeLayout
+          Size="128.8,41.6"
+          Id="Package\Sequence Container 2\BUS\Bus flat file"
+          TopLeft="244.7,5.49999999999984" />
+        <NodeLayout
+          Size="208,41.6"
+          Id="Package\Sequence Container 2\BUS\Slowly Changing Dimension"
+          TopLeft="205.1,208.7" />
+        <NodeLayout
+          Size="167.2,41.6"
+          Id="Package\Sequence Container 2\BUS\OLE DB Command"
+          TopLeft="225.5,310.3" />
+        <NodeLayout
+          Size="156,41.6"
+          Id="Package\Sequence Container 2\BUS\Data Conversion"
+          TopLeft="231.1,107.1" />
+        <NodeLayout
+          Size="124,41.6"
+          Id="Package\Sequence Container 2\BUS\Bus_error"
+          TopLeft="554,109" />
+        <EdgeLayout
+          Id="Package\Sequence Container 2\BUS.Paths[New Output]"
+          TopLeft="275.766666666667,250.3">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-220.266666666667,60"
+              Start="0,0"
+              End="-220.266666666667,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.2748091603053" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.2748091603053"
+                    Point2="0,24.2748091603053"
+                    Point3="-4,24.2748091603053" />
+                  <mssgle:LineSegment
+                    End="-216.266666666667,24.2748091603053" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-216.266666666667,24.2748091603053"
+                    Point2="-220.266666666667,24.2748091603053"
+                    Point3="-220.266666666667,28.2748091603053" />
+                  <mssgle:LineSegment
+                    End="-220.266666666667,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-137.224720052083,29.2748091603053,54.1827734375,11.43359375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container 2\BUS.Paths[Flat File Source Output]"
+          TopLeft="309.1,47.0999999999998">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.9999999999999"
+              Start="0,0"
+              End="0,52.4999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.4999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container 2\BUS.Paths[Data Conversion Output]"
+          TopLeft="309.1,148.7">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container 2\BUS.Paths[Data Conversion Error Output]"
+          TopLeft="387.1,128.85">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="166.9,0"
+              Start="0,0"
+              End="159.4,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="159.4,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="13.61361328125,5,132.1727734375,11.43359375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container 2\BUS.Paths[Changing Attribute Updates Output]"
+          TopLeft="342.433333333333,250.3">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-33.3333333333333,60"
+              Start="0,0"
+              End="-33.3333333333333,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.2748091603054" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.2748091603054"
+                    Point2="0,24.2748091603054"
+                    Point3="-4,24.2748091603054" />
+                  <mssgle:LineSegment
+                    End="-29.3333333333333,24.2748091603054" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-29.3333333333333,24.2748091603054"
+                    Point2="-33.3333333333333,24.2748091603054"
+                    Point3="-33.3333333333333,28.2748091603054" />
+                  <mssgle:LineSegment
+                    End="-33.3333333333333,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-95.2005729166667,29.2748091603054,157.0678125,11.6630859375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container 2\BUS\BUS">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container 2\BUS\Slowly Changing Dimension">
+    <Properties>
+      <Property>
+        <Name>SCDMetadata</Name>
+        <Value
+          type="q2:string">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SCDWizardMetadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionID&gt;{BA804AD0-4019-44C3-9804-1406EE4168F1}&lt;/ConnectionID&gt;
+  &lt;TableName&gt;[Agency].[Bus]&lt;/TableName&gt;
+  &lt;InputToColumnsCollection&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[bus_code_convert]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;bus_code&lt;/ColumnName&gt;
+      &lt;KeyType&gt;BusinessKey&lt;/KeyType&gt;
+      &lt;ChangeType&gt;None&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[number_of_seat_convert]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;number_of_seat&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[route_id_convert]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;route_id&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Bus flat file.Outputs[Flat File Source Output].Columns[type]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;type&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;None&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+  &lt;/InputToColumnsCollection&gt;
+  &lt;GeneratedComponentsIdentificationStrings&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;Insert Destination&lt;/anyType&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;OLE DB Command&lt;/anyType&gt;
+  &lt;/GeneratedComponentsIdentificationStrings&gt;
+  &lt;FailFixedAttribute&gt;false&lt;/FailFixedAttribute&gt;
+  &lt;FailChangeAttribute&gt;true&lt;/FailChangeAttribute&gt;
+  &lt;UseStartEndDate&gt;false&lt;/UseStartEndDate&gt;
+  &lt;CurrentIndicatorColumn /&gt;
+  &lt;InferredIndicatorColumn /&gt;
+  &lt;ValueCurrent&gt;Current&lt;/ValueCurrent&gt;
+  &lt;ValueExpired&gt;Expired&lt;/ValueExpired&gt;
+  &lt;StartDateColumn /&gt;
+  &lt;EndDateColumn /&gt;
+  &lt;DateVariable /&gt;
+  &lt;EnableInferredSupport&gt;false&lt;/EnableInferredSupport&gt;
+&lt;/SCDWizardMetadata&gt;</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Sequence Container 2\TRIP">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="129.6,41.6"
+          Id="Package\Sequence Container 2\TRIP\Trip flat file"
+          TopLeft="461,99" />
+        <NodeLayout
+          Size="102.4,41.6"
+          Id="Package\Sequence Container 2\TRIP\TRIP"
+          TopLeft="487,336" />
+        <NodeLayout
+          Size="125.6,41.6"
+          Id="Package\Sequence Container 2\TRIP\Trip_Error"
+          TopLeft="777,340" />
+        <NodeLayout
+          Size="156,41.6"
+          Id="Package\Sequence Container 2\TRIP\Data Conversion"
+          TopLeft="454,216" />
+        <EdgeLayout
+          Id="Package\Sequence Container 2\TRIP.Paths[OLE DB Destination Error Output]"
+          TopLeft="589.4,358.8">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="187.6,0"
+              Start="0,0"
+              End="180.1,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="180.1,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="16.8410937500001,5,146.4178125,11.43359375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container 2\TRIP.Paths[Flat File Source Output]"
+          TopLeft="528.9,140.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,75.4000000000001"
+              Start="0,0"
+              End="0,67.9000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,67.9000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container 2\TRIP.Paths[Data Conversion Output]"
+          TopLeft="535.1,257.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,78.3999999999999"
+              Start="0,0"
+              End="0,70.8999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,70.8999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container 2\TRIP\TRIP">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
