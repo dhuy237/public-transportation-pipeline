@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="96"
-  DTS:VersionGUID="{835F62BE-C720-40F0-8DB7-9A65DAC63876}">
+  DTS:VersionBuild="100"
+  DTS:VersionGUID="{6D9DC3CE-88DA-4397-B22B-C4DED6413D99}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -1296,6 +1296,21 @@
     </DTS:Variable>
   </DTS:Variables>
   <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Execute putFile"
+      DTS:CreationName="Microsoft.ExecuteProcess"
+      DTS:Description="Execute Process Task"
+      DTS:DTSID="{7C74662E-A9B3-4134-BB03-5321C14A2FA5}"
+      DTS:ExecutableType="Microsoft.ExecuteProcess"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Execute putFile"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecuteProcessData
+          Executable="E:\fpt\training\Project 1\fa-project-1-team-7\src\snowflake\putFile.bat" />
+      </DTS:ObjectData>
+    </DTS:Executable>
     <DTS:Executable
       DTS:refId="Package\ROUTE"
       DTS:CreationName="Microsoft.Pipeline"
@@ -5921,140 +5936,6 @@
                   </outputs>
                 </component>
                 <component
-                  refId="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination"
-                  componentClassID="Microsoft.FlatFileDestination"
-                  contactInfo="Flat File Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
-                  description="Flat File Destination"
-                  localeId="1033"
-                  name="Flat File Destination">
-                  <properties>
-                    <property
-                      dataType="System.Boolean"
-                      description="Specifies whether the data will overwrite or append to the destination file."
-                      name="Overwrite">true</property>
-                    <property
-                      dataType="System.Null"
-                      description="Specifies the text to write to the destination file before any data is written."
-                      expressionType="Notify"
-                      name="Header" />
-                    <property
-                      dataType="System.Boolean"
-                      description="When text qualifier is enabled, specifies whether the text qualifier in the data written to the destination file will be escaped or not."
-                      name="EscapeQualifier">false</property>
-                  </properties>
-                  <connections>
-                    <connection
-                      refId="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination.Connections[FlatFileConnection]"
-                      connectionManagerID="Package.ConnectionManagers[StopRoute_Error]"
-                      connectionManagerRefId="Package.ConnectionManagers[StopRoute_Error]"
-                      name="FlatFileConnection" />
-                  </connections>
-                  <inputs>
-                    <input
-                      refId="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination.Inputs[Flat File Destination Input]"
-                      hasSideEffects="true"
-                      name="Flat File Destination Input">
-                      <inputColumns>
-                        <inputColumn
-                          refId="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination.Inputs[Flat File Destination Input].Columns[bus_stop_id]"
-                          cachedCodepage="1252"
-                          cachedDataType="str"
-                          cachedLength="50"
-                          cachedName="bus_stop_id"
-                          externalMetadataColumnId="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[bus_stop_id]"
-                          lineageId="Package\Sequence Container 1\STOP_ROUTE\Stop route flat file.Outputs[Flat File Source Output].Columns[bus_stop_id]" />
-                        <inputColumn
-                          refId="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination.Inputs[Flat File Destination Input].Columns[route_id]"
-                          cachedCodepage="1252"
-                          cachedDataType="str"
-                          cachedLength="50"
-                          cachedName="route_id"
-                          externalMetadataColumnId="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[route_id]"
-                          lineageId="Package\Sequence Container 1\STOP_ROUTE\Stop route flat file.Outputs[Flat File Source Output].Columns[route_id]" />
-                        <inputColumn
-                          refId="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination.Inputs[Flat File Destination Input].Columns[arrival_time]"
-                          cachedCodepage="1252"
-                          cachedDataType="str"
-                          cachedLength="50"
-                          cachedName="arrival_time"
-                          externalMetadataColumnId="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[arrival_time]"
-                          lineageId="Package\Sequence Container 1\STOP_ROUTE\Stop route flat file.Outputs[Flat File Source Output].Columns[arrival_time]" />
-                        <inputColumn
-                          refId="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination.Inputs[Flat File Destination Input].Columns[bus_stop_id_convert]"
-                          cachedDataType="i4"
-                          cachedName="bus_stop_id_convert"
-                          externalMetadataColumnId="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[bus_stop_id_convert]"
-                          lineageId="Package\Sequence Container 1\STOP_ROUTE\Data Conversion.Outputs[Data Conversion Output].Columns[bus_stop_id_convert]" />
-                        <inputColumn
-                          refId="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination.Inputs[Flat File Destination Input].Columns[route_id_convert]"
-                          cachedDataType="i4"
-                          cachedName="route_id_convert"
-                          externalMetadataColumnId="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[route_id_convert]"
-                          lineageId="Package\Sequence Container 1\STOP_ROUTE\Data Conversion.Outputs[Data Conversion Output].Columns[route_id_convert]" />
-                        <inputColumn
-                          refId="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination.Inputs[Flat File Destination Input].Columns[arrival_time_convert]"
-                          cachedDataType="dbTime2"
-                          cachedName="arrival_time_convert"
-                          externalMetadataColumnId="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[arrival_time_convert]"
-                          lineageId="Package\Sequence Container 1\STOP_ROUTE\Data Conversion.Outputs[Data Conversion Output].Columns[arrival_time_convert]" />
-                        <inputColumn
-                          refId="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination.Inputs[Flat File Destination Input].Columns[ErrorCode]"
-                          cachedDataType="i4"
-                          cachedName="ErrorCode"
-                          externalMetadataColumnId="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[ErrorCode]"
-                          lineageId="Package\Sequence Container 1\STOP_ROUTE\STOP_ROUTE.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]" />
-                        <inputColumn
-                          refId="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination.Inputs[Flat File Destination Input].Columns[ErrorColumn]"
-                          cachedDataType="i4"
-                          cachedName="ErrorColumn"
-                          externalMetadataColumnId="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[ErrorColumn]"
-                          lineageId="Package\Sequence Container 1\STOP_ROUTE\STOP_ROUTE.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]" />
-                      </inputColumns>
-                      <externalMetadataColumns
-                        isUsed="True">
-                        <externalMetadataColumn
-                          refId="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[bus_stop_id]"
-                          codePage="1252"
-                          dataType="str"
-                          length="50"
-                          name="bus_stop_id" />
-                        <externalMetadataColumn
-                          refId="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[route_id]"
-                          codePage="1252"
-                          dataType="str"
-                          length="50"
-                          name="route_id" />
-                        <externalMetadataColumn
-                          refId="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[arrival_time]"
-                          codePage="1252"
-                          dataType="str"
-                          length="50"
-                          name="arrival_time" />
-                        <externalMetadataColumn
-                          refId="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[bus_stop_id_convert]"
-                          dataType="i4"
-                          name="bus_stop_id_convert" />
-                        <externalMetadataColumn
-                          refId="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[route_id_convert]"
-                          dataType="i4"
-                          name="route_id_convert" />
-                        <externalMetadataColumn
-                          refId="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[arrival_time_convert]"
-                          dataType="dbTime2"
-                          name="arrival_time_convert" />
-                        <externalMetadataColumn
-                          refId="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[ErrorCode]"
-                          dataType="i4"
-                          name="ErrorCode" />
-                        <externalMetadataColumn
-                          refId="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[ErrorColumn]"
-                          dataType="i4"
-                          name="ErrorColumn" />
-                      </externalMetadataColumns>
-                    </input>
-                  </inputs>
-                </component>
-                <component
                   refId="Package\Sequence Container 1\STOP_ROUTE\Stop route flat file"
                   componentClassID="Microsoft.FlatFileSource"
                   contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
@@ -6204,6 +6085,140 @@
                   </outputs>
                 </component>
                 <component
+                  refId="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error"
+                  componentClassID="Microsoft.FlatFileDestination"
+                  contactInfo="Flat File Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+                  description="Flat File Destination"
+                  localeId="1033"
+                  name="StopRoute_Error">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Specifies whether the data will overwrite or append to the destination file."
+                      name="Overwrite">true</property>
+                    <property
+                      dataType="System.Null"
+                      description="Specifies the text to write to the destination file before any data is written."
+                      expressionType="Notify"
+                      name="Header" />
+                    <property
+                      dataType="System.Boolean"
+                      description="When text qualifier is enabled, specifies whether the text qualifier in the data written to the destination file will be escaped or not."
+                      name="EscapeQualifier">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error.Connections[FlatFileConnection]"
+                      connectionManagerID="Package.ConnectionManagers[StopRoute_Error]"
+                      connectionManagerRefId="Package.ConnectionManagers[StopRoute_Error]"
+                      name="FlatFileConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error.Inputs[Flat File Destination Input]"
+                      hasSideEffects="true"
+                      name="Flat File Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error.Inputs[Flat File Destination Input].Columns[bus_stop_id]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="bus_stop_id"
+                          externalMetadataColumnId="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error.Inputs[Flat File Destination Input].ExternalColumns[bus_stop_id]"
+                          lineageId="Package\Sequence Container 1\STOP_ROUTE\Stop route flat file.Outputs[Flat File Source Output].Columns[bus_stop_id]" />
+                        <inputColumn
+                          refId="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error.Inputs[Flat File Destination Input].Columns[route_id]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="route_id"
+                          externalMetadataColumnId="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error.Inputs[Flat File Destination Input].ExternalColumns[route_id]"
+                          lineageId="Package\Sequence Container 1\STOP_ROUTE\Stop route flat file.Outputs[Flat File Source Output].Columns[route_id]" />
+                        <inputColumn
+                          refId="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error.Inputs[Flat File Destination Input].Columns[arrival_time]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="arrival_time"
+                          externalMetadataColumnId="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error.Inputs[Flat File Destination Input].ExternalColumns[arrival_time]"
+                          lineageId="Package\Sequence Container 1\STOP_ROUTE\Stop route flat file.Outputs[Flat File Source Output].Columns[arrival_time]" />
+                        <inputColumn
+                          refId="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error.Inputs[Flat File Destination Input].Columns[bus_stop_id_convert]"
+                          cachedDataType="i4"
+                          cachedName="bus_stop_id_convert"
+                          externalMetadataColumnId="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error.Inputs[Flat File Destination Input].ExternalColumns[bus_stop_id_convert]"
+                          lineageId="Package\Sequence Container 1\STOP_ROUTE\Data Conversion.Outputs[Data Conversion Output].Columns[bus_stop_id_convert]" />
+                        <inputColumn
+                          refId="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error.Inputs[Flat File Destination Input].Columns[route_id_convert]"
+                          cachedDataType="i4"
+                          cachedName="route_id_convert"
+                          externalMetadataColumnId="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error.Inputs[Flat File Destination Input].ExternalColumns[route_id_convert]"
+                          lineageId="Package\Sequence Container 1\STOP_ROUTE\Data Conversion.Outputs[Data Conversion Output].Columns[route_id_convert]" />
+                        <inputColumn
+                          refId="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error.Inputs[Flat File Destination Input].Columns[arrival_time_convert]"
+                          cachedDataType="dbTime2"
+                          cachedName="arrival_time_convert"
+                          externalMetadataColumnId="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error.Inputs[Flat File Destination Input].ExternalColumns[arrival_time_convert]"
+                          lineageId="Package\Sequence Container 1\STOP_ROUTE\Data Conversion.Outputs[Data Conversion Output].Columns[arrival_time_convert]" />
+                        <inputColumn
+                          refId="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error.Inputs[Flat File Destination Input].Columns[ErrorCode]"
+                          cachedDataType="i4"
+                          cachedName="ErrorCode"
+                          externalMetadataColumnId="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error.Inputs[Flat File Destination Input].ExternalColumns[ErrorCode]"
+                          lineageId="Package\Sequence Container 1\STOP_ROUTE\STOP_ROUTE.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]" />
+                        <inputColumn
+                          refId="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error.Inputs[Flat File Destination Input].Columns[ErrorColumn]"
+                          cachedDataType="i4"
+                          cachedName="ErrorColumn"
+                          externalMetadataColumnId="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error.Inputs[Flat File Destination Input].ExternalColumns[ErrorColumn]"
+                          lineageId="Package\Sequence Container 1\STOP_ROUTE\STOP_ROUTE.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error.Inputs[Flat File Destination Input].ExternalColumns[bus_stop_id]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="bus_stop_id" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error.Inputs[Flat File Destination Input].ExternalColumns[route_id]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="route_id" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error.Inputs[Flat File Destination Input].ExternalColumns[arrival_time]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="arrival_time" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error.Inputs[Flat File Destination Input].ExternalColumns[bus_stop_id_convert]"
+                          dataType="i4"
+                          name="bus_stop_id_convert" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error.Inputs[Flat File Destination Input].ExternalColumns[route_id_convert]"
+                          dataType="i4"
+                          name="route_id_convert" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error.Inputs[Flat File Destination Input].ExternalColumns[arrival_time_convert]"
+                          dataType="dbTime2"
+                          name="arrival_time_convert" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error.Inputs[Flat File Destination Input].ExternalColumns[ErrorCode]"
+                          dataType="i4"
+                          name="ErrorCode" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error.Inputs[Flat File Destination Input].ExternalColumns[ErrorColumn]"
+                          dataType="i4"
+                          name="ErrorColumn" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                </component>
+                <component
                   refId="Package\Sequence Container 1\STOP_ROUTE\STOP_ROUTE"
                   componentClassID="Microsoft.OLEDBDestination"
                   contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
@@ -6351,7 +6366,7 @@
                   startId="Package\Sequence Container 1\STOP_ROUTE\Stop route flat file.Outputs[Flat File Source Output]" />
                 <path
                   refId="Package\Sequence Container 1\STOP_ROUTE.Paths[OLE DB Destination Error Output]"
-                  endId="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination.Inputs[Flat File Destination Input]"
+                  endId="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error.Inputs[Flat File Destination Input]"
                   name="OLE DB Destination Error Output"
                   startId="Package\Sequence Container 1\STOP_ROUTE\STOP_ROUTE.Outputs[OLE DB Destination Error Output]" />
               </paths>
@@ -8776,6 +8791,14 @@
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 2"
       DTS:To="Package\Sequence Container 1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{E8CCAE6E-9F69-48AE-BE3B-177B348C29F9}"
+      DTS:From="Package\Sequence Container 1"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Execute putFile" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -8896,6 +8919,32 @@
                   Capacity="5">
                   <mssgle:LineSegment
                     End="0,79.2999984089533" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="150.4,41.6"
+          Id="Package\Execute putFile"
+          TopLeft="315.833320783245,1142.40000264486" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="388.166659149859,1064.53333630191">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,77.8666663429474"
+              Start="0,0"
+              End="0,70.3666663429474">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,70.3666663429474" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -10217,8 +10266,8 @@
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
-          Size="170.4,41.6"
-          Id="Package\Sequence Container 1\STOP_ROUTE\Flat File Destination"
+          Size="156,41.6"
+          Id="Package\Sequence Container 1\STOP_ROUTE\StopRoute_Error"
           TopLeft="946,348" />
         <EdgeLayout
           Id="Package\Sequence Container 1\STOP_ROUTE.Paths[OLE DB Destination Error Output]"
