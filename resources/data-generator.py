@@ -6,11 +6,13 @@ from decimal import Decimal
 from faker import Faker
 import pandas as pd
 from distutils.dir_util import copy_tree
+from pathlib import Path
 
 # Get current folder path
 OUTPUT_PATH = os.path.dirname(os.path.realpath(__file__))
 OUTPUT_RAW = OUTPUT_PATH + '/raw-folder'
 OUTPUT_WORK = OUTPUT_PATH + '/work-folder'
+OUTPUT_LOGS = OUTPUT_PATH+"/logs"
 
 # Set parameters
 SEED_NUM = 0
@@ -144,7 +146,7 @@ def create_route(output_path, route_dict, numOfRecords=20, seed_num=0):
             writer.writerow(
                 {
                     'route_id': i + 1,
-                    'agency_id': fake.random_int(100, 100 + numOfRecords),
+                    'agency_id': fake.random_int(100, 100 + numOfRecords - 1),
                     'route_name': departure_name + " - " + destination_name,
                     'departure_name': departure_name,
                     'destination_name': destination_name,
@@ -172,7 +174,7 @@ def create_stop_time(output_path, numOfRecords=10000, numOfBusStop=100):
                 {
                     'stop_time_id': numOfRecords + i,
                     'trip_id': i,
-                    'bus_stop_id': fake.random_int(1000, 1000 + numOfBusStop)
+                    'bus_stop_id': fake.random_int(1000, 1000 + numOfBusStop - 1)
                 }
             )
 
@@ -188,7 +190,7 @@ def create_trip(output_path, numOfRecords=10000, numOfBus=60):
             writer.writerow(
                 {
                     'trip_id': i,
-                    'bus_code': fake.random_int(100, 100 + numOfBus),
+                    'bus_code': fake.random_int(100, 100 + numOfBus - 1),
                     'trip_headsign': fake.company().split(',')[0],
                     'date_stop': fake.date_this_year(),
                     'time_stop': fake.time(),
@@ -208,7 +210,7 @@ def create_stop_route(output_path, numOfRecords=100, numOfBus=60, numOfRoute=20)
             writer.writerow(
                 {
                     'bus_stop_id': 1000 + i,
-                    'route_id': fake.random_int(1, numOfRoute),
+                    'route_id': fake.random_int(1, numOfRoute - 1),
                     'arrival_time': fake.time()
                 }
             )
@@ -236,3 +238,6 @@ print("Create stop route")
 create_stop_route(OUTPUT_RAW, NUM_OF_STOP_ROUTE, NUM_OF_BUS, NUM_OF_ROUTE)
 
 copy_tree(OUTPUT_RAW, OUTPUT_WORK)
+
+# Create logs folder
+Path(OUTPUT_LOGS).mkdir(parents=True, exist_ok=True)
