@@ -28,6 +28,13 @@ NUM_OF_STOP_ROUTE = 100
 fake = Faker()
 Faker.seed(SEED_NUM)
 
+# Create raw-folder and work-folder if not existed
+Path(OUTPUT_RAW).mkdir(parents=True, exist_ok=True)
+Path(OUTPUT_WORK).mkdir(parents=True, exist_ok=True)
+
+# Create logs folder
+Path(OUTPUT_LOGS).mkdir(parents=True, exist_ok=True)
+
 def create_bus_stop(output_path, numOfRecords=100):
     filename = output_path+'/bus_stop.csv'
     with open(filename, 'w', newline='') as csvfile:
@@ -79,7 +86,7 @@ def create_agency(output_path, numOfRecords=20, seed_num=0):
                     'agency_id': 100 + i,
                     'name': fake.company().split(',')[0],
                     'phone_number': fake.phone_number(),
-                    'address': fake.address(),
+                    'address': fake.address().replace("\n", " "),
                     'operating_hour_start': start_time,
                     'operating_hour_end': end_time
                 }
@@ -238,6 +245,3 @@ print("Create stop route")
 create_stop_route(OUTPUT_RAW, NUM_OF_STOP_ROUTE, NUM_OF_BUS, NUM_OF_ROUTE)
 
 copy_tree(OUTPUT_RAW, OUTPUT_WORK)
-
-# Create logs folder
-Path(OUTPUT_LOGS).mkdir(parents=True, exist_ok=True)
