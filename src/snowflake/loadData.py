@@ -23,7 +23,7 @@ logger = getLogger(__name__)
 # If you generated an encrypted private key, implement this method to return
 # the passphrase for decrypting your private key.
 def get_private_key_passphrase():
-  return '072399'
+  return '12345'
 
 with open("C:\\Users\\Huy\\ssh_temp\\rsa_key.p8", 'rb') as pem_in:
   pemlines = pem_in.read()
