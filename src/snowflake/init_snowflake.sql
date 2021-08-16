@@ -11,7 +11,6 @@ CREATE OR REPLACE DATABASE PublicTransportation;
 -- set up table
 CREATE OR REPLACE TABLE Public.DIM_BUS(
 	bus_code int NOT NULL,
-	route_id int NOT NULL,
 	number_of_seat int NOT NULL,
 	type nvarchar(10) NOT NULL
 );
@@ -22,6 +21,8 @@ CREATE OR REPLACE TABLE Public.DIM_BUSSTOP(
 	name nvarchar(100) NOT NULL,
 	street nvarchar(100) NOT NULL,
 	district int NOT NULL,
+    latitude float NOT NULL,
+	longtitude float NOT NULL,
 	arrival_time time(7) NULL
 );
 
@@ -41,15 +42,11 @@ CREATE OR REPLACE TABLE Public.DIM_ROUTE(
 	distance int NOT NULL
 );
 
-CREATE OR REPLACE TABLE Public.DIM_STOPTIME(
-	stop_time_id int NOT NULL,
-	trip_id int NOT NULL,
-	bus_stop_id int NOT NULL
-);
-
 CREATE OR REPLACE TABLE Public.FACT_TRIP(
 	trip_id int NOT NULL,
 	bus_code int NOT NULL,
+    bus_stop_id int NOT NULL,
+    stop_time_id int NOT NULL,
     route_id int NOT NULL,
 	trip_headsign nvarchar(150) NOT NULL,
     date_stop date NOT NULL,
@@ -57,9 +54,39 @@ CREATE OR REPLACE TABLE Public.FACT_TRIP(
 	number_of_ticket int NOT NULL
 );
 
+CREATE OR REPLACE TABLE Public.STAGE_BUSSTOP(
+	bus_stop_id int NOT NULL,
+	name nvarchar(100) NOT NULL,
+	street nvarchar(100) NOT NULL,
+	district int NOT NULL,
+    latitude float NOT NULL,
+	longtitude float NOT NULL
+);
+
+CREATE OR REPLACE TABLE Public.STAGE_TRIP(
+	trip_id int NOT NULL,
+	bus_code int NOT NULL,
+	trip_headsign nvarchar(150) NOT NULL,
+    date_stop date NOT NULL,
+	time_stop time(7) NOT NULL,
+	number_of_ticket int NOT NULL
+);
+
+CREATE OR REPLACE TABLE Public.STAGE_STOPROUTE(
+	bus_stop_id int NULL,
+	route_id int NULL,
+	arrival_time time(7) NULL
+);
+  
+CREATE OR REPLACE TABLE Public.STAGE_STOPTIME(
+	stop_time_id int NOT NULL,
+	trip_id int NOT NULL,
+	bus_stop_id int NOT NULL
+);
+
 -- Create csv file format
 CREATE OR REPLACE FILE FORMAT csv_format
-type = csv field_delimiter = ',' skip_header = 1 field_optionally_enclosed_by='"';
+type = csv field_delimiter = ',' field_optionally_enclosed_by='"';
 
 -- Create Trigger
 
@@ -71,14 +98,64 @@ create or replace stage publictransportation.Public.route_stage;
 create or replace stage publictransportation.Public.stoptime_stage;
 create or replace stage publictransportation.Public.trip_stage;
 
+-- Create Bus pipe
 create or replace pipe publictransportation.public.bus_pipe
 as
 copy into publictransportation.public.DIM_BUS
 from (
-  select t.*
+  select t.$1, t.$3, t.$4
   from @publictransportation.public.bus_stage t
 )
 file_format = csv_format;
 
+-- Create Route pipe
+create or replace pipe publictransportation.public.route_pipe
+as
+copy into publictransportation.public.DIM_ROUTE
+from (
+  select t.*
+  from @publictransportation.public.route_stage t
+)
+file_format = csv_format;
+
+-- Create Bus stop pipe
+create or replace pipe publictransportation.public.busstop_pipe
+as
+copy into publictransportation.public.STAGE_BUSSTOP
+from (
+  select t.*
+  from @publictransportation.public.busstop_stage t
+)
+file_format = csv_format;
+
+-- Create Trip pipe
+create or replace pipe publictransportation.public.trip_pipe
+as
+copy into publictransportation.public.STAGE_TRIP
+from (
+  select t.*
+  from @publictransportation.public.trip_stage t
+)
+file_format = csv_format;
+
+-- Create Stop route pipe
+create or replace pipe publictransportation.public.stoproute_pipe
+as
+copy into publictransportation.public.STAGE_STOPROUTE
+from (
+  select t.*
+  from @publictransportation.public.stoproute_stage t
+)
+file_format = csv_format;
+
+-- Create Stop time pipe
+create or replace pipe publictransportation.public.stoptime_pipe
+as
+copy into publictransportation.public.STAGE_STOPTIME
+from (
+  select t.*
+  from @publictransportation.public.stoptime_stage t
+)
+file_format = csv_format;
 
 -- Task
