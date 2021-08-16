@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="123"
-  DTS:VersionGUID="{575C6E57-A2B4-4938-A4C3-2738FEF1F589}">
+  DTS:VersionBuild="124"
+  DTS:VersionGUID="{C21069FD-434A-4D84-8914-8D3AB1949888}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -940,6 +940,8 @@
       DTS:CreationName="FLATFILE"
       DTS:DTSID="{A0EE99EC-CBA3-4D6A-9C39-9FB62EBAD04A}"
       DTS:ObjectName="Bus_Error">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::ErrorPath]+"\\bus_error.txt"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:Format="Delimited"
@@ -12887,6 +12889,10 @@
       <GraphLayout
         Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
+          Size="160.8,41.6"
+          Id="Package\Execute loadData"
+          TopLeft="304.629617524736,1252.66667192424" />
+        <NodeLayout
           Size="150.4,41.6"
           Id="Package\Execute putFile"
           TopLeft="314.907394894112,1141.43703967424" />
@@ -13027,10 +13033,6 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="160.8,41.6"
-          Id="Package\Execute loadData"
-          TopLeft="304.629617524736,1252.66667192424" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 4]"
           TopLeft="387.568506209424,1183.03703967424">
