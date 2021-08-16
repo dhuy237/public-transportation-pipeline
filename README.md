@@ -24,5 +24,5 @@ Building the data pipeline
 
 # How to setup
 1. Login into MSSQL and run [init_mssql.sql](./src/mssql/init_mssql.sql)
-2. Authen SnowSQL and run [init_snowflake.sql](./src/mssql/init_snowfalke.sql)
+2. Authen SnowSQL and run [init_snowflake.sql](./src/snowflake/init_snowfalke.sql)
 3. Generate data: `python data-generator.py`
