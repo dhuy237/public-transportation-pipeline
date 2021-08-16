@@ -160,6 +160,8 @@ file_format = csv_format;
 
 -- Task
 -- Use ACCOUNTADMIN to create and run tasks
+USE ROLE accountadmin;
+
 CREATE OR REPLACE TASK ADD_DIM_BUSSTOP
   WAREHOUSE = COMPUTE_TRANSFORM
   SCHEDULE = '1 minute'
