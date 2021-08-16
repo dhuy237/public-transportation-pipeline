@@ -159,3 +159,34 @@ from (
 file_format = csv_format;
 
 -- Task
+-- Use ACCOUNTADMIN to create and run tasks
+CREATE OR REPLACE TASK ADD_DIM_BUSSTOP
+  WAREHOUSE = COMPUTE_TRANSFORM
+  SCHEDULE = '1 minute'
+AS
+  INSERT INTO publictransportation.public.DIM_BUSSTOP(bus_stop_id, route_id, name, street, district, latitude, longtitude, arrival_time)
+  SELECT bsr.bus_stop_id, bsr.route_id, bsr.name, bsr.street, bsr.district, bsr.latitude, bsr.longtitude, bsr.arrival_time
+  FROM (
+    select bs.bus_stop_id, bs.name, bs.street, bs.district, bs.latitude, bs.longtitude, sr.route_id, sr.arrival_time
+    from publictransportation.public.STAGE_BUSSTOP as bs
+    join publictransportation.public.STAGE_STOPROUTE as sr
+    on bs.bus_stop_id = sr.bus_stop_id
+  ) as bsr;
+
+CREATE OR REPLACE TASK ADD_FACT_TRIP
+  WAREHOUSE = COMPUTE_TRANSFORM
+  SCHEDULE = '1 minute'
+AS
+  INSERT INTO publictransportation.public.FACT_TRIP(trip_id, bus_code, bus_stop_id, stop_time_id, route_id, trip_headsign, date_stop, time_stop, number_of_ticket)
+  SELECT tsr.trip_id, tsr.bus_code, tsr.bus_stop_id, tsr.stop_time_id, tsr.route_id, tsr.trip_headsign, tsr.date_stop, tsr.time_stop, tsr.number_of_ticket 
+  FROM (
+    select t.trip_id, t.bus_code, st.bus_stop_id, st.stop_time_id, sr.route_id, t.trip_headsign, t.date_stop, t.time_stop, t.number_of_ticket 
+    from publictransportation.public.STAGE_TRIP as t
+    join publictransportation.public.STAGE_STOPTIME as st
+    on t.trip_id = st.trip_id
+    join publictransportation.public.STAGE_STOPROUTE as sr
+    on st.bus_stop_id = sr.bus_stop_id
+  ) as tsr;
+
+alter task ADD_DIM_BUSSTOP resume;
+alter task ADD_FACT_TRIP resume;
