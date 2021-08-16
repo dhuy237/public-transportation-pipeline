@@ -20,7 +20,7 @@ LOG_PATH = 'E:\\fpt\\training\\Project 1\\fa-project-1-team-7\\resources\\logs\\
 
 ACCOUNT = 'qn37920.southeast-asia.azure'
 HOST = 'qn37920.southeast-asia.azure.snowflakecomputing.com'
-USER = 'dhuy237'
+USER = 'public_user'
 
 BUS_PIPE = 'publictransportation.public.bus_pipe'
 ROUTE_PIPE = 'publictransportation.public.route_pipe'
