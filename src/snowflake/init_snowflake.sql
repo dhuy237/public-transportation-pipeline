@@ -88,8 +88,6 @@ CREATE OR REPLACE TABLE Public.STAGE_STOPTIME(
 CREATE OR REPLACE FILE FORMAT csv_format
 type = csv field_delimiter = ',' field_optionally_enclosed_by='"';
 
--- Create Trigger
-
 -- Set up Snowpipe
 create or replace stage publictransportation.Public.bus_stage;
 create or replace stage publictransportation.Public.busstop_stage;
@@ -162,9 +160,10 @@ file_format = csv_format;
 -- Use ACCOUNTADMIN to create and run tasks
 USE ROLE accountadmin;
 
+-- Task for transforming data to before load to DIM_BUSSTOP table
 CREATE OR REPLACE TASK ADD_DIM_BUSSTOP
   WAREHOUSE = COMPUTE_TRANSFORM
-  SCHEDULE = '1 minute'
+  SCHEDULE = '30 minute'
 AS
   INSERT OVERWRITE INTO publictransportation.public.DIM_BUSSTOP(bus_stop_id, route_id, name, street, district, latitude, longtitude, arrival_time)
   SELECT bsr.bus_stop_id, bsr.route_id, bsr.name, bsr.street, bsr.district, bsr.latitude, bsr.longtitude, bsr.arrival_time
@@ -175,6 +174,7 @@ AS
     on bs.bus_stop_id = sr.bus_stop_id
   ) as bsr;
 
+-- Task for transforming data to before load to FACT_TRIP table
 CREATE OR REPLACE TASK ADD_FACT_TRIP
   WAREHOUSE = COMPUTE_TRANSFORM
   SCHEDULE = '1 minute'
@@ -190,5 +190,37 @@ AS
     on st.bus_stop_id = sr.bus_stop_id
   ) as tsr;
 
+-- Task to remove stage table STAGE_BUSSTOP
+CREATE TASK REMOVE_STAGE_DIM_BUSSTOP
+  WAREHOUSE = COMPUTE_TRANSFORM
+  AFTER ADD_DIM_BUSSTOP
+AS
+DELETE FROM publictransportation.public.STAGE_BUSSTOP;
+
+-- Task to remove stage table STAGE_TRIP
+CREATE TASK REMOVE_STAGE_FACT_TRIP
+  WAREHOUSE = COMPUTE_TRANSFORM
+  AFTER ADD_FACT_TRIP
+AS
+DELETE FROM publictransportation.public.STAGE_TRIP;
+
+-- Task to remove stage table STAGE_STOPTIME
+CREATE TASK REMOVE_STAGE_STOPTIME
+  WAREHOUSE = COMPUTE_TRANSFORM
+  AFTER ADD_FACT_TRIP
+AS
+DELETE FROM publictransportation.public.STAGE_STOPTIME;
+
+-- Task to remove stage table STAGE_STOPROUTE
+CREATE TASK REMOVE_STAGE_STOPROUTE
+  WAREHOUSE = COMPUTE_TRANSFORM
+  AFTER ADD_FACT_TRIP
+AS
+DELETE FROM publictransportation.public.STAGE_STOPROUTE;
+
 alter task ADD_DIM_BUSSTOP resume;
 alter task ADD_FACT_TRIP resume;
+alter task REMOVE_STAGE_DIM_BUSSTOP resume;
+alter task REMOVE_STAGE_FACT_TRIP resume;
+alter task REMOVE_STAGE_STOPTIME resume;
+alter task REMOVE_STAGE_STOPROUTE resume;

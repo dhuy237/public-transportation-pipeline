@@ -1,19 +1,8 @@
 -- Set up Database
-USE master ;  
+USE master;  
 GO  
 CREATE DATABASE PublicTransportation  
-ON   
-( NAME = PT_dat,  
-    FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\ptdat.mdf',  
-    SIZE = 10,  
-    MAXSIZE = 50,  
-    FILEGROWTH = 5 )  
-LOG ON  
-( NAME = PT_log,  
-    FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\ptlog.ldf',  
-    SIZE = 5MB,  
-    MAXSIZE = 25MB,  
-    FILEGROWTH = 5MB ) ;  
+ON  
 GO  
 
 -- Set up Schema
