@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">DESKTOP-NQAEQ4S</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAfGuQjvrTVU6fhMtZYhceKQAAAAACAAAAAAAQZgAAAAEAACAAAAAQ35LQVv663K2o1xIQVQylQvN2kPMizgqFhLQbTx8AuwAAAAAOgAAAAAIAACAAAACSSOAqTSnnEn3Gi4Hgmvu/F+S83si7qGrJOkIJnKRRTZAAAABMdJgNBpvzpkMa/+kUfd30O/Sl7N/XANEuH+gU24vMlCXpZcOJjnmZpoyVU3qBdjfbxsoDolBPURo1fWsWAdnvUAN8OufyV+Jn/eKqH33+DthVsaauw6fCC62JyM0SeJAu9yqLcvZA6PlN3DD0xYCTgHJ6Wrppeq7oNN0b0/bvmr0af2kMU1XSojqSluQQaF1AAAAAfPIkSOfqpjIIAvI1rAx9UI53ITouneqGRY2yZEjWXAFK2iw3UghKav5g5DO8PiEkPXNOLE/R/ZZKE8f/1cqNuw==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAfGuQjvrTVU6fhMtZYhceKQAAAAACAAAAAAAQZgAAAAEAACAAAAC0j3V0Ose+fIMed0quOOPfQ11062bopBSlMTSUdzrGNgAAAAAOgAAAAAIAACAAAABWSJ+Xn46ZHIMufRd+IgTfZPBEM2BMj6b65E6vewUcW5AAAAD4engsTjTdT3iWQ5Xu4E/ApYV12gUqCxhfpWOTPl3Zdf/1vbzarhdLRJJFehKPXEQZJabaVIOhnllzeSV4+xf1rLEpKEAPY3Oo19LlFE17aBnDviFqWrsVHHo1PdeFWul8/p/CJiV89y44D2pmWtufk1JzQO46L0e8xax8hknpr21RUFBRLTLi5CkKWLaPL6RAAAAAk6cGd7anwyv3CZDeiRuVOwoCkPpJJ/AWOru+z7bF0O1ixDn/ts19X0ouWJ+/zcA1FcEHKAeNfJPoqy+gsexmvw==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -42,10 +42,10 @@
                 <SSIS:Property SSIS:Name="Name">Package</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">121</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">125</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{26EC4921-A6E9-425A-9CDD-DAFED5601177}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{A01CB923-5394-4BA3-B3D0-BD1F454437A0}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -1202,21 +1202,6 @@
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Value">false</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">3</SSIS:Property>
-                  </SSIS:Properties>
-                </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.Bus_Error.ConnectionString">
-                  <SSIS:Properties>
-                    <SSIS:Property SSIS:Name="ID">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="CreationName">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="Description">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">E:\fpt\training\Project 1\fa-project-1-team-7\resources\logs\bus_error.txt</SSIS:Property>
-                    <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
                 <SSIS:Parameter SSIS:Name="CM.Bus_Error.DataRowsToSkip">

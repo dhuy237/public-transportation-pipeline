@@ -218,9 +218,9 @@ CREATE TASK REMOVE_STAGE_STOPROUTE
 AS
 DELETE FROM publictransportation.public.STAGE_STOPROUTE;
 
-alter task ADD_DIM_BUSSTOP resume;
-alter task ADD_FACT_TRIP resume;
 alter task REMOVE_STAGE_DIM_BUSSTOP resume;
 alter task REMOVE_STAGE_FACT_TRIP resume;
 alter task REMOVE_STAGE_STOPTIME resume;
 alter task REMOVE_STAGE_STOPROUTE resume;
+alter task ADD_DIM_BUSSTOP resume;
+alter task ADD_FACT_TRIP resume;

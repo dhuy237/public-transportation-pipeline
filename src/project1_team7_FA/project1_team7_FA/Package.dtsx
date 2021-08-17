@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="124"
-  DTS:VersionGUID="{C21069FD-434A-4D84-8914-8D3AB1949888}">
+  DTS:VersionBuild="125"
+  DTS:VersionGUID="{A01CB923-5394-4BA3-B3D0-BD1F454437A0}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -2665,6 +2665,7 @@
       DTS:refId="Package\ROUTE"
       DTS:CreationName="Microsoft.Pipeline"
       DTS:Description="Data Flow Task"
+      DTS:Disabled="True"
       DTS:DTSID="{D7B737E4-A251-4259-8C45-1BCDE14413B7}"
       DTS:ExecutableType="Microsoft.Pipeline"
       DTS:LocaleID="-1"
@@ -5558,6 +5559,7 @@
       DTS:refId="Package\Sequence Container"
       DTS:CreationName="STOCK:SEQUENCE"
       DTS:Description="Sequence Container"
+      DTS:Disabled="True"
       DTS:DTSID="{BA62BFE0-DB4A-417C-B514-C78479E293B1}"
       DTS:ExecutableType="STOCK:SEQUENCE"
       DTS:LocaleID="-1"
@@ -9147,6 +9149,7 @@
       DTS:refId="Package\Sequence Container 1"
       DTS:CreationName="STOCK:SEQUENCE"
       DTS:Description="Sequence Container"
+      DTS:Disabled="True"
       DTS:DTSID="{74A25A02-C08B-4E69-86CD-12CB3F804CF6}"
       DTS:ExecutableType="STOCK:SEQUENCE"
       DTS:LocaleID="-1"
@@ -10576,6 +10579,7 @@
       DTS:refId="Package\Sequence Container 2"
       DTS:CreationName="STOCK:SEQUENCE"
       DTS:Description="Sequence Container"
+      DTS:Disabled="True"
       DTS:DTSID="{161EF3AF-EDA3-4C50-AFD8-97357DB2AEFA}"
       DTS:ExecutableType="STOCK:SEQUENCE"
       DTS:LocaleID="-1"
