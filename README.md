@@ -52,24 +52,24 @@ Building the data pipeline.
 2. Login into MSSQL and run [init_mssql.sql](./src/mssql/init_mssql.sql)
 3. Authen SnowSQL and run [init_snowflake.sql](./src/snowflake/init_snowfalke.sql)
 4. Open `src/snowflake/putFile.bat`:
-    - Change the `-f` file path to the folder contain `src\snowflake\ssis2snow.sql` file.
-5. Open `src\snowflake\ssis2snow.sql`:
+    - Change the `-f` file path to the folder contain `src/snowflake/ssis2snow.sql` file.
+5. Open `src/snowflake/ssis2snow.sql`:
     - Change all the path to the place that contains `resources/work-folder`, keep all the `.csv` name after the path.
-6. Open `src\snowflake\loadData.py`:
+6. Open `src/snowflake/loadData.py`:
     - Change `SRA_PATH`: Generate RSA key with the following command (Snowflake [document](https://docs.snowflake.com/en/user-guide/key-pair-auth.html)), you can change the directory to a temp folder so that it does not overwrite your existing key:
     ```bash
     openssl genrsa 2048 | openssl pkcs8 -topk8 -inform PEM -out rsa_key.p8
     openssl rsa -in rsa_key.p8 -pubout -out rsa_key.pub
     ```
     - Send the `rsa_key.pub` file to the repo owner to add to your Snowflake user account.
-    - Change `LOG_PATH`: Change your path to the place contains `resources\logs`.
+    - Change `LOG_PATH`: Change your path to the place contains `resources/logs`.
 7. Open SSIS [solution](./src/project1_team7_FA):
     - Update `localhost.PublicTransportation` connection to the local database on SSMS.
     - Update `variables`:
-        - `DataPath`: change your path to the place contains `resources\work-folder`.
-        - `ErrorPath`: change your path to the place contains `resources\logs`.
+        - `DataPath`: change your path to the place contains `resources/work-folder`.
+        - `ErrorPath`: change your path to the place contains `resources/logs`.
         The error log will be stored here if there is any error during execution.
-        - `ExecutePath`: change your path to the place contains `src\snowflake`.
+        - `ExecutePath`: change your path to the place contains `src/snowflake`.
         - `PythonExecutionPath`: change your path to the place contains `python.exe`.
         If you use Anaconda, the path should look like this `C:\Users\<user-name>\Anaconda3\python.exe`.
     - Execute the package.
