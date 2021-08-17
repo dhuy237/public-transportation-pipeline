@@ -1,14 +1,14 @@
 # Public Transportation Data Pipeline
 
-### :bus: Decsription of this project
+### Decsription of this project
 
 Allocate resource and scheduling based on route, traffic, transport type information.
 
-### :dart: Purpose
+### Purpose
 
 Building the data pipeline.
 
-## Detail of Work
+## :bus: Detail of Work
 1. Generate data
     - Generate data using `resources/data-generator.py` script to `raw-folder` and copy it to `work-folder`.
 2. Design data pipeline 
@@ -26,8 +26,8 @@ Building the data pipeline.
 6. Visualize your data
     - Data on the dimensional tables is visualized on the Power BI dashboard.
 
-## Getting Started
-### :pushpin: Prerequisites
+## :rocket: Getting Started
+### Prerequisites
 - Install [Snowsql](https://docs.snowflake.com/en/user-guide/snowsql.html) and add the following setting to `config` file (Windows: `config` file located at `C:\Users\<user-name>\.snowsql`): 
     ```
     [connections.loadingdb]
@@ -47,7 +47,7 @@ Building the data pipeline.
     git clone https://github.com/dhuy237/fa-project-1-team-7.git
     ```
 
-### :rocket: Usage
+### Usage
 1. Generate data: `python resources/data-generator.py`
 2. Login into MSSQL and run [init_mssql.sql](./src/mssql/init_mssql.sql)
 3. Authen SnowSQL and run [init_snowflake.sql](./src/snowflake/init_snowfalke.sql)
