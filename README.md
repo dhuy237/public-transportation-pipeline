@@ -8,7 +8,7 @@ Allocate resource and scheduling based on route, traffic, transport type informa
 
 Building the data pipeline.
 
-### Detail of Work
+## Detail of Work
 1. Generate data
     - Generate data using `resources/data-generator.py` script to `raw-folder` and copy it to `work-folder`.
 2. Design data pipeline 
