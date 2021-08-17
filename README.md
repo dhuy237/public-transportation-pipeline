@@ -1,17 +1,14 @@
-# Project Topic
-Public Transportation
+# Public Transportation Data Pipeline
+
+### :bus: Decsription of this project
 
 Allocate resource and scheduling based on route, traffic, transport type information.
 
-## :bus: Decsription of this project
-
-This project is using for demo to FA about how to initialize a project and draft data pipeline.
-
-## :dart: Purpose
+### :dart: Purpose
 
 Building the data pipeline.
 
-# Detail of Work
+### Detail of Work
 1. Generate data
     - Generate data using `resources/data-generator.py` script to `raw-folder` and copy it to `work-folder`.
 2. Design data pipeline 
@@ -29,8 +26,8 @@ Building the data pipeline.
 6. Visualize your data
     - Data on the dimensional tables is visualized on the Power BI dashboard.
 
-# How to setup
-## :pushpin: Prerequisites
+## Getting Started
+### :pushpin: Prerequisites
 - Install [Snowsql](https://docs.snowflake.com/en/user-guide/snowsql.html) and add the following setting to `config` file (Windows: `config` file located at `C:\Users\<user-name>\.snowsql`): 
     ```
     [connections.loadingdb]
@@ -45,8 +42,12 @@ Building the data pipeline.
 - Install python dependencies: `pip install -r requirements.txt`. 
     Make sure you can import libraries using `cmd`.
     We recommend installing [Anaconda](https://www.anaconda.com/) and add `conda` environment to windows `PATH`.
+- Clone the repo:
+    ```
+    git clone https://github.com/dhuy237/fa-project-1-team-7.git
+    ```
 
-## :rocket: Usage
+### :rocket: Usage
 1. Generate data: `python resources/data-generator.py`
 2. Login into MSSQL and run [init_mssql.sql](./src/mssql/init_mssql.sql)
 3. Authen SnowSQL and run [init_snowflake.sql](./src/snowflake/init_snowfalke.sql)
@@ -72,3 +73,21 @@ Building the data pipeline.
         - `PythonExecutionPath`: change your path to the place contains `python.exe`.
         If you use Anaconda, the path should look like this `C:\Users\<user-name>\Anaconda3\python.exe`.
     - Execute the package.
+
+## :round_pushpin: Roadmap
+
+See the [open issues](https://github.com/dhuy237/fa-project-1-team-7/issues) for a list of proposed features (and known issues).
+
+## :hammer: Contributing
+
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1. Fork the Project.
+2. Create your Feature Branch (`git checkout -b feature/Feature`).
+3. Commit your Changes (`git commit -m 'Add some feature'`).
+4. Push to the Branch (`git push origin feature/Feature`).
+5. Open a Pull Request.
+
+## :mailbox: Contact
+- Huy Tran ([dhuy237](https://github.com/dhuy237)) - d.huy723@gmail.com
+- Quyen Mai ([mtquyen](https://github.com/mtquyen)) - maithiquyen124@gmail.com
