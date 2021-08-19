@@ -26,6 +26,8 @@ Building the data pipeline.
 6. Visualize your data
     - Data on the dimensional tables is visualized on the Power BI dashboard.
 
+![image](./docs/dashboard.png)
+
 ## :rocket: Getting Started
 ### Prerequisites
 - Install [Snowsql](https://docs.snowflake.com/en/user-guide/snowsql.html) and add the following setting to `config` file (Windows: `config` file located at `C:\Users\<user-name>\.snowsql`): 
