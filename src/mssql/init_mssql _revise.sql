@@ -1,9 +1,12 @@
-CREATE DATABASE [PublicTransportation]
+--Create database
+CREATE DATABASE [PublicTransportation];
 
 USE [PublicTransportation];
 GO
 CREATE SCHEMA Bus;
 GO
+
+--Create tables for schema Bus
 
 CREATE TABLE [Bus].[BusType]
 (
@@ -35,19 +38,18 @@ CREATE TABLE [Bus].[BusInfo]
 (
       [bus_code] VARCHAR(50) NOT NULL,
 	  [route_id] VARCHAR(50) NOT NULL,
-	  [route_id_status] VARCHAR NOT NULL,
+	  [route_id_status] VARCHAR(50) NOT NULL,
 	  [seat_capacity] INT NOT NULL,
 	  [max_capacity] INT NOT NULL,
 	  [modified_date] DATETIME,
 CONSTRAINT PK_businfo PRIMARY KEY ([bus_code])
-)
+);
+
 
 CREATE TABLE [Bus].[BusTrip]
 (   
       [trip_id] VARCHAR(50) NOT NULL,
-	  [bus_type_id] INT NOT NULL,
 	  [bus_code] VARCHAR(50) NOT NULL,
-	  [route_id] VARCHAR(50) NOT NULL,
 	  [date_id] VARCHAR(50) NOT NULL,
 	  [date] DATE NOT NULL,
 	  [depart_timestamp] TIME NOT NULL,
@@ -56,6 +58,7 @@ CREATE TABLE [Bus].[BusTrip]
 	  [modified_date] DATETIME,
 CONSTRAINT [PK_bustrip] PRIMARY KEY ([trip_id])
 );
+
 
 CREATE TABLE [Bus].[BusCalendar]
 (
@@ -68,31 +71,9 @@ CREATE TABLE [Bus].[BusCalendar]
 CONSTRAINT [PK_buscalendar] PRIMARY KEY ([date_id])
 );
 
-ALTER TABLE [Bus].[BusRoute]
-WITH CHECK
-ADD CONSTRAINT [FK_bustype] FOREIGN KEY ([bus_type_id])
-REFERENCES [Bus].[BusType]([bus_type_id]);
-GO
-
-ALTER TABLE [Bus].[BusRoute] CHECK CONSTRAINT [FK_bustype];
-GO
-
-ALTER TABLE [Bus].[BusInfo]
-WITH CHECK
-ADD CONSTRAINT [FK_routeid] FOREIGN KEY ([route_id])
-REFERENCES [Bus].[BusRoute]([route_id]);
-GO
-
-ALTER TABLE [Bus].[BusInfo] CHECK CONSTRAINT [FK_routeid];
-GO
-
-ALTER TABLE [Bus].[BusTrip]
-WITH CHECK
-ADD CONSTRAINT [FK_bustypeid] FOREIGN KEY ([bus_type_id])
-REFERENCES [Bus].[BusType]([bus_type_id]);
-GO
 
 -- Insert calendar data into [BusCalendar]
+
 DECLARE @StartDate  date = '20210101';
 
 DECLARE @CutoffDate date = DATEADD(DAY, -1, DATEADD(YEAR, 2, @StartDate));
@@ -124,24 +105,43 @@ TheMonth, TheYear FROM src
   OPTION (MAXRECURSION 0);
 
 
+-- Add constraints
 
-ALTER TABLE [Bus].[BusTrip] CHECK CONSTRAINT [FK_bustypeid]
+---BusRoute
+ALTER TABLE [Bus].[BusRoute]
+WITH CHECK
+ADD CONSTRAINT [FK_bustype] FOREIGN KEY ([bus_type_id])
+REFERENCES [Bus].[BusType]([bus_type_id]);
 GO
 
+ALTER TABLE [Bus].[BusRoute] CHECK CONSTRAINT [FK_bustype];
+GO
+
+---BusInfo
+ALTER TABLE [Bus].[BusInfo]
+WITH CHECK
+ADD CONSTRAINT [FK_routeid] FOREIGN KEY ([route_id])
+REFERENCES [Bus].[BusRoute]([route_id]);
+GO
+
+ALTER TABLE [Bus].[BusInfo] CHECK CONSTRAINT [FK_routeid];
+GO
+
+---BusTrip
 ALTER TABLE [Bus].[BusTrip]
 WITH CHECK
 ADD CONSTRAINT [FK_buscode] FOREIGN KEY ([bus_code])
-REFERENCES [Bus].[BusInfo]([bus_code])
+REFERENCES [Bus].[BusInfo]([bus_code]);
 GO
 
-ALTER TABLE [Bus].[BusTrip] CHECK CONSTRAINT [FK_buscode]
+ALTER TABLE [Bus].[BusTrip] CHECK CONSTRAINT [FK_buscode];
 GO
 
 ALTER TABLE [Bus].[BusTrip]
 WITH CHECK
 ADD CONSTRAINT [FK_dateid] FOREIGN KEY ([date_id])
-REFERENCES [Bus].[BusCalendar]([date_id])
+REFERENCES [Bus].[BusCalendar]([date_id]);
 GO
 
-ALTER TABLE [Bus].[BusTrip] CHECK CONSTRAINT [FK_dateid]
+ALTER TABLE [Bus].[BusTrip] CHECK CONSTRAINT [FK_dateid];
 GO
