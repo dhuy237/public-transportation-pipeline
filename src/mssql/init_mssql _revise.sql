@@ -1,3 +1,5 @@
+CREATE DATABASE [PublicTransportation]
+
 USE [PublicTransportation];
 GO
 CREATE SCHEMA Bus;
@@ -8,6 +10,8 @@ CREATE TABLE [Bus].[BusType]
       [bus_type_id] INT NOT NULL,
 	  [bus_type] VARCHAR(50) NOT NULL,
 	  [fare] FLOAT NOT NULL,
+	  [fare_status] VARCHAR(50),
+	  [modified_date] DATETIME,
 CONSTRAINT PK_bustype PRIMARY KEY([bus_type_id]) 
 )
 
@@ -23,6 +27,7 @@ CREATE TABLE [Bus].[BusRoute]
 	  [route_distance] FLOAT NOT NULL,
 	  [operating_start_hour] TIME NOT NULL,
 	  [operating_end_hour] TIME NOT NULL,
+	  [modified_date] DATETIME,
 CONSTRAINT PK_busroute PRIMARY KEY ([route_id])
 )
 
@@ -30,8 +35,10 @@ CREATE TABLE [Bus].[BusInfo]
 (
       [bus_code] VARCHAR(50) NOT NULL,
 	  [route_id] INT NOT NULL,
+	  [route_id_status] VARCHAR NOT NULL,
 	  [seat_capacity] INT NOT NULL,
 	  [max_capacity] INT NOT NULL,
+	  [modified_date] DATETIME,
 CONSTRAINT PK_businfo PRIMARY KEY ([bus_code])
 )
 
@@ -46,6 +53,7 @@ CREATE TABLE [Bus].[BusTrip]
 	  [depart_timestamp] TIME NOT NULL,
 	  [arrival_timestamp] TIME NOT NULL,
 	  [number_of_ticket] INT NOT NULL,
+	  [modified_date] DATETIME,
 CONSTRAINT [PK_bustrip] PRIMARY KEY ([trip_id])
 );
 
