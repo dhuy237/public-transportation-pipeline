@@ -17,7 +17,7 @@ CONSTRAINT PK_bustype PRIMARY KEY([bus_type_id])
 
 CREATE TABLE [Bus].[BusRoute]
 (
-      [route_id] INT NOT NULL,
+      [route_id] VARCHAR(50) NOT NULL,
 	  [route_name] VARCHAR(50) NOT NULL,
 	  [bus_type_id] INT NOT NULL,
 	  [depart_address] VARCHAR(100) NOT NULL,
@@ -34,7 +34,7 @@ CONSTRAINT PK_busroute PRIMARY KEY ([route_id])
 CREATE TABLE [Bus].[BusInfo]
 (
       [bus_code] VARCHAR(50) NOT NULL,
-	  [route_id] INT NOT NULL,
+	  [route_id] VARCHAR(50) NOT NULL,
 	  [route_id_status] VARCHAR NOT NULL,
 	  [seat_capacity] INT NOT NULL,
 	  [max_capacity] INT NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE [Bus].[BusTrip]
       [trip_id] VARCHAR(50) NOT NULL,
 	  [bus_type_id] INT NOT NULL,
 	  [bus_code] VARCHAR(50) NOT NULL,
-	  [route_id] INT NOT NULL,
+	  [route_id] VARCHAR(50) NOT NULL,
 	  [date_id] VARCHAR(50) NOT NULL,
 	  [date] DATE NOT NULL,
 	  [depart_timestamp] TIME NOT NULL,
