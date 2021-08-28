@@ -2,28 +2,37 @@ import csv
 import os
 import random
 import time
-from datetime import datetime, timezone, date
-from faker import Faker
+from datetime import datetime
 
 # Set up reference
 BEGIN_TIMESTAMP = 1609459200-3600 # January 1, 2021 12:00:00 AM
 NOW_TIME = round(datetime.now().timestamp())
-RECORD_COUNT = 1000
-fake = Faker()
 no_of_bus = 100
 no_of_ebus = 120
 no_of_route = 20
 BUS_CODE = [['B' + f'{i:03d}' for i in range(1, no_of_bus+1)], ['E' + f'{i:03d}' for i in range(1, no_of_ebus+1)]]
 ROUTE_ID = [[], []]
 BUS_INFO = {}
-dir_path = os.path.dirname(os.path.abspath(__file__))
+
 time_stamp = datetime.now().strftime("%Y_%m_%d-%I_%M_%S_%p")
 
 # Set up file path
-bus_info_path = f'{dir_path}\\BusInfo.csv'
-bus_type_path = f'{dir_path}\\BusType.csv'
-bus_route_path = f'{dir_path}\\BusRoute.csv'
-bus_trip_path = f'{dir_path}\\BusTrip.csv'
+home_path = os.getenv('USERPROFILE')
+project_path = home_path + '\\project'
+work_folder_path = project_path + '\\work-folder'
+raw_folder_path = project_path + '\\raw-folder'
+bus_info_path = f'{raw_folder_path}\\BusInfo.csv'
+bus_type_path = f'{raw_folder_path}\\BusType.csv'
+bus_route_path = f'{raw_folder_path}\\BusRoute.csv'
+bus_trip_path = f'{raw_folder_path}\\BusTrip.csv'
+
+def is_rush_hour(time_string):
+    start_time = time.strptime(time_string, '%H:%M:%S')
+    morning1 = time.strptime('08:00:00', '%H:%M:%S')
+    morning2 = time.strptime('09:00:00', '%H:%M:%S')
+    evening1 = time.strptime('15:00:00', '%H:%M:%S')
+    evening2 = time.strptime('19:00:00', '%H:%M:%S')
+    return ((morning1 <= start_time) and (start_time <= morning2)) or ((evening1 <= start_time) and (start_time <= evening2))
 
 def create_bus_type():
     with open(bus_type_path, 'w', newline='') as csvFile:
@@ -59,8 +68,8 @@ def create_bus_route(no_of_route=20):
                     'standard_duration': standard_duration,
                     'frequency': 30 if prefix_route == 'BR' else 15,
                     'route_distance': round((20 if prefix_route == 'BR' else 30) * standard_duration/60, 1),
-                    'operating_start_hour': '06:00',
-                    'operating_end_hour': '22:00'
+                    'operating_start_hour': '06:00:00',
+                    'operating_end_hour': '20:00:00'
                 }
             )
         
@@ -104,7 +113,7 @@ def create_bus_trip():
     #busy_ebus_a, busy_ebus_b = [], []
     with open(bus_trip_path, 'w', newline='') as csvFile:
         fieldnames = ['trip_id','bus_type','bus_code', 'route_id','date_id',
-                      'date', 'depart_timestamp', 'arrival_timestamp', 'number_of_ticket']
+                      'date', 'depart_time', 'arrival_time', 'number_of_ticket', 'is_rush_hour']
         writer = csv.DictWriter(csvFile, fieldnames=fieldnames)
         writer.writeheader()
         
@@ -129,7 +138,9 @@ def create_bus_trip():
                     active_bus_b = bus_b[40:]
                 for j in range(0, 10):
                     start_datetime = datetime.fromtimestamp(tracking_timestamp)
-                    arrival_datetime_a = datetime.fromtimestamp(tracking_timestamp + random.randint(115*60, 135*60))
+                    depart_time = start_datetime.strftime("%H:%M:%S")
+                    rush_hour = is_rush_hour(depart_time)
+                    arrival_datetime_a = datetime.fromtimestamp(tracking_timestamp + random.randint(130*60, 140*60)) if rush_hour else datetime.fromtimestamp(tracking_timestamp + random.randint(115*60, 135*60))
                     # trip bus from A
                     running_bus_a = active_bus_a[j]
                     route_id_a = BUS_INFO[running_bus_a]
@@ -141,13 +152,16 @@ def create_bus_trip():
                             'route_id': route_id_a,
                             'date_id': start_datetime.strftime("%Y%m%d"),
                             'date': start_datetime.strftime("%Y-%m-%d"),
-                            'depart_timestamp': start_datetime.strftime("%H:%M:%S"),
-                            'arrival_timestamp': arrival_datetime_a.strftime("%H:%M:%S"),
-                            'number_of_ticket': random.randint(40, 80)
+                            'depart_time': depart_time,
+                            'arrival_time': arrival_datetime_a.strftime("%H:%M:%S"),
+                            'number_of_ticket': random.randint(180, 200) if rush_hour else random.randint(100, 180),
+                            'is_rush_hour': rush_hour
+
                         }
                     )
                     # trip bus from B
-                    arrival_datetime_b = datetime.fromtimestamp(tracking_timestamp + random.randint(115*60, 135*60))
+                    # depart_time = start_datetime.strftime("%H:%M:%S")
+                    arrival_datetime_b = datetime.fromtimestamp(tracking_timestamp + random.randint(130*60, 140*60)) if rush_hour else datetime.fromtimestamp(tracking_timestamp + random.randint(115*60, 135*60))
                     running_bus_b = active_bus_b[j]
                     route_id_b = BUS_INFO[running_bus_b]
                     writer.writerow(
@@ -158,9 +172,10 @@ def create_bus_trip():
                             'route_id': route_id_b,
                             'date_id': start_datetime.strftime("%Y%m%d"),
                             'date': start_datetime.strftime("%Y-%m-%d"),
-                            'depart_timestamp': start_datetime.strftime("%H:%M:%S"),
-                            'arrival_timestamp': arrival_datetime_b.strftime("%H:%M:%S"),
-                            'number_of_ticket': random.randint(40, 80)
+                            'depart_time': depart_time,
+                            'arrival_time': arrival_datetime_b.strftime("%H:%M:%S"),
+                            'number_of_ticket': random.randint(180, 200) if rush_hour else random.randint(100, 180),
+                            'is_rush_hour': rush_hour
                         }
                     )
                 tracking_timestamp += 30*60
@@ -187,7 +202,9 @@ def create_bus_trip():
                     active_ebus_b = ebus_b[50:]
                 for j in range(0, 10):
                     start_datetime = datetime.fromtimestamp(tracking_timestamp)
-                    arrival_datetime_a = datetime.fromtimestamp(tracking_timestamp + random.randint(75*60, 95*60))
+                    depart_time = start_datetime.strftime("%H:%M:%S")
+                    rush_hour = is_rush_hour(depart_time)
+                    arrival_datetime_a = datetime.fromtimestamp(tracking_timestamp + random.randint(95*60, 100*60)) if rush_hour else datetime.fromtimestamp(tracking_timestamp + random.randint(75*60, 955*60))
                     # trip bus from A
                     running_ebus_a = active_ebus_a[j]
                     route_id_a = BUS_INFO[running_ebus_a]
@@ -199,13 +216,15 @@ def create_bus_trip():
                             'route_id': route_id_a,
                             'date_id': start_datetime.strftime("%Y%m%d"),
                             'date': start_datetime.strftime("%Y-%m-%d"),
-                            'depart_timestamp': start_datetime.strftime("%H:%M:%S"),
-                            'arrival_timestamp': arrival_datetime_a.strftime("%H:%M:%S"),
-                            'number_of_ticket': random.randint(25, 55)
+                            'depart_time': depart_time,
+                            'arrival_time': arrival_datetime_a.strftime("%H:%M:%S"),
+                            'number_of_ticket': random.randint(100, 120) if rush_hour else random.randint(60, 100),
+                            'is_rush_hour': rush_hour
                         }
                     )
                     # trip bus from B
-                    arrival_datetime_b = datetime.fromtimestamp(tracking_timestamp + random.randint(75*60, 95*60))
+                    # depart_time = start_datetime.strftime("%H:%M:%S")
+                    arrival_datetime_a = datetime.fromtimestamp(tracking_timestamp + random.randint(95*60, 100*60)) if rush_hour else datetime.fromtimestamp(tracking_timestamp + random.randint(75*60, 955*60))
                     running_ebus_b = active_ebus_b[j]
                     route_id_b = BUS_INFO[running_ebus_b]
                     writer.writerow(
@@ -216,9 +235,10 @@ def create_bus_trip():
                             'route_id': route_id_b,
                             'date_id': start_datetime.strftime("%Y%m%d"),
                             'date': start_datetime.strftime("%Y-%m-%d"),
-                            'depart_timestamp': start_datetime.strftime("%H:%M:%S"),
-                            'arrival_timestamp': arrival_datetime_b.strftime("%H:%M:%S"),
-                            'number_of_ticket': random.randint(40, 80)
+                            'depart_time': depart_time,
+                            'arrival_time': arrival_datetime_a.strftime("%H:%M:%S"),
+                            'number_of_ticket': random.randint(100, 120) if rush_hour else random.randint(60, 100),
+                            'is_rush_hour': rush_hour
                         }
                     )
                 tracking_timestamp += 15*60
@@ -227,6 +247,12 @@ def create_bus_trip():
 if __name__ == '__main__':
     t1 = datetime.now()
     print('Creating data...')
+    if not os.path.isdir(project_path):
+        os.mkdir(project_path)
+    if not os.path.isdir(raw_folder_path):
+        os.mkdir(raw_folder_path)
+    if not os.path.isdir(work_folder_path):
+        os.mkdir(work_folder_path)
     create_bus_type()
     create_bus_route()
     create_bus_info()
