@@ -1,3 +1,4 @@
 *.csv
 resources/logs
 debug.log
+.vs
