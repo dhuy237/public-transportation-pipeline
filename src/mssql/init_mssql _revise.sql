@@ -3,7 +3,7 @@ CREATE DATABASE [PublicTransportation];
 
 USE [PublicTransportation];
 GO
-CREATE SCHEMA Bus;
+CREATE SCHEMA [Bus];
 GO
 
 --Create tables for schema Bus
@@ -52,9 +52,10 @@ CREATE TABLE [Bus].[BusTrip]
 	  [bus_code] VARCHAR(50) NOT NULL,
 	  [date_id] VARCHAR(50) NOT NULL,
 	  [date] DATE NOT NULL,
-	  [depart_timestamp] TIME NOT NULL,
-	  [arrival_timestamp] TIME NOT NULL,
+	  [depart_time] TIME NOT NULL,
+	  [arrival_time] TIME NOT NULL,
 	  [number_of_ticket] INT NOT NULL,
+	  [is_rush_hour] VARCHAR(50) NOT NULL,
 	  [modified_date] DATETIME,
 CONSTRAINT [PK_bustrip] PRIMARY KEY ([trip_id])
 );
@@ -144,4 +145,145 @@ REFERENCES [Bus].[BusCalendar]([date_id]);
 GO
 
 ALTER TABLE [Bus].[BusTrip] CHECK CONSTRAINT [FK_dateid];
+GO
+
+--Create A Log Table To Track Changes To Database Objects
+USE [PublicTransportation]
+GO
+ 
+SET ANSI_NULLS ON
+GO
+ 
+SET QUOTED_IDENTIFIER ON
+GO
+ 
+CREATE TABLE [ChangeLog]
+(
+    [log_id] [INT] IDENTITY(1,1) NOT NULL,
+    [database_name] VARCHAR(256) NOT NULL,
+    [event_type] VARCHAR(50) NOT NULL,
+    [object_name] VARCHAR(256) NOT NULL,
+    [object_type] VARCHAR(25) NOT NULL,
+    [sql_command] VARCHAR(MAX) NOT NULL,
+    [event_date] DATETIME NOT NULL,
+    [login_name] VARCHAR(256) NOT NULL
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+ 
+ALTER TABLE [ChangeLog]
+ADD CONSTRAINT [DF_EventsLog_EventDate] DEFAULT (GETDATE()) FOR [event_date]
+GO
+
+--Create triggers
+
+--- Create trigger to update [modified_date] for [Bus].[BusType] table
+USE [PublicTransportation]
+ GO
+ SET ANSI_NULLS ON
+ GO
+ SET QUOTED_IDENTIFIER ON
+ GO
+ CREATE TRIGGER [bustype_modified_date] on [Bus].[BusType] AFTER INSERT, UPDATE AS
+ BEGIN
+     UPDATE [Bus].[BusType]
+     SET [modified_date] = CURRENT_TIMESTAMP
+     FROM [Bus].[BusType] INNER JOIN inserted i ON [Bus].[BusType].[bus_type_id] = i.[bus_type_id]
+ END;
+ GO
+ ALTER TABLE [Bus].[BusType] ENABLE TRIGGER [bustype_modified_date];
+ GO
+
+ ---Create trigger to update [modified_date] for [Bus].[BusRoute] table
+ USE [PublicTransportation]
+ GO
+ SET ANSI_NULLS ON
+ GO
+ SET QUOTED_IDENTIFIER ON
+ GO
+ CREATE TRIGGER [busroute_modified_date] on [Bus].[BusRoute] AFTER INSERT, UPDATE AS
+ BEGIN
+     UPDATE [Bus].[BusRoute]
+     SET [modified_date] = CURRENT_TIMESTAMP
+     FROM [Bus].[BusRoute] INNER JOIN inserted i ON [Bus].[BusRoute].[route_id] = i.[route_id]
+ END;
+ GO
+ ALTER TABLE [Bus].[BusRoute] ENABLE TRIGGER [busroute_modified_date];
+ GO
+
+  ---Create trigger to update [modified_date] for [Bus].[BusInfo] table
+ USE [PublicTransportation]
+ GO
+ SET ANSI_NULLS ON
+ GO
+ SET QUOTED_IDENTIFIER ON
+ GO
+ CREATE TRIGGER [businfo_modified_date] on [Bus].[BusInfo] AFTER INSERT, UPDATE AS
+ BEGIN
+     UPDATE [Bus].[BusInfo]
+     SET [modified_date] = CURRENT_TIMESTAMP
+     FROM [Bus].[BusInfo] INNER JOIN inserted i ON [Bus].[BusInfo].[bus_code] = i.[bus_code]
+ END;
+ GO
+ ALTER TABLE [Bus].[BusInfo] ENABLE TRIGGER [businfo_modified_date];
+ GO
+
+ ---Create trigger to update [modified_date] for [Bus].[BusTrip] table
+ USE [PublicTransportation]
+ GO
+ SET ANSI_NULLS ON
+ GO
+ SET QUOTED_IDENTIFIER ON
+ GO
+ CREATE TRIGGER [bustrip_modified_date] on [Bus].[BusTrip] AFTER INSERT, UPDATE AS
+ BEGIN
+     UPDATE [Bus].[BusTrip]
+     SET [modified_date] = CURRENT_TIMESTAMP
+     FROM [Bus].[BusTrip] INNER JOIN inserted i ON [Bus].[BusTrip].[trip_id] = i.[trip_id]
+ END;
+ GO
+ ALTER TABLE [Bus].[BusTrip] ENABLE TRIGGER [bustrip_modified_date];
+ GO
+
+ ---Create trigger to backup objects with [dbo].[ChangeLog] table
+USE [PublicTransportation]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ 
+CREATE TRIGGER [backup_objects]
+ON DATABASE
+FOR CREATE_PROCEDURE, 
+    ALTER_PROCEDURE, 
+    DROP_PROCEDURE,
+    CREATE_TABLE, 
+    ALTER_TABLE, 
+    DROP_TABLE,
+    CREATE_FUNCTION, 
+    ALTER_FUNCTION, 
+    DROP_FUNCTION,
+    CREATE_VIEW,
+    ALTER_VIEW,
+    DROP_VIEW
+AS
+ 
+SET NOCOUNT ON
+ 
+DECLARE @data XML
+SET @data = EVENTDATA()
+ 
+INSERT INTO changelog(database_name, event_type, 
+    object_name, object_type, sql_command, login_name)
+VALUES(
+@data.value('(/EVENT_INSTANCE/DatabaseName)[1]', 'varchar(256)'),
+@data.value('(/EVENT_INSTANCE/EventType)[1]', 'varchar(50)'), 
+@data.value('(/EVENT_INSTANCE/ObjectName)[1]', 'varchar(256)'), 
+@data.value('(/EVENT_INSTANCE/ObjectType)[1]', 'varchar(25)'), 
+@data.value('(/EVENT_INSTANCE/TSQLCommand)[1]', 'varchar(max)'), 
+@data.value('(/EVENT_INSTANCE/LoginName)[1]', 'varchar(256)')
+);
+GO
+ 
+ENABLE TRIGGER [backup_objects] ON DATABASE;
 GO

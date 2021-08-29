@@ -22,6 +22,7 @@ project_path = home_path + '\\project'
 raw_folder_path = project_path + '\\raw-folder'
 work_folder_path = project_path + '\\work-folder'
 log_folder_path = project_path + '\\log-folder'
+buffer_folder_path = project_path + '\\buffer-folder'
 bus_info_path = f'{raw_folder_path}\\BusInfo.csv'
 bus_type_path = f'{raw_folder_path}\\BusType.csv'
 bus_route_path = f'{raw_folder_path}\\BusRoute.csv'
@@ -256,6 +257,8 @@ if __name__ == '__main__':
         os.mkdir(work_folder_path)
     if not os.path.isdir(log_folder_path):
         os.mkdir(log_folder_path)
+    if not os.path.isdir(buffer_folder_path):
+        os.mkdir(buffer_folder_path)
     create_bus_type()
     create_bus_route()
     create_bus_info()
