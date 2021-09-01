@@ -8,83 +8,69 @@ AUTO_RESUME = TRUE
 INITIALLY_SUSPENDED = FALSE
 COMMENT = 'This warehouse is used for transportation project demo.';
 
+DROP TABLE FACT_BUSTRIP
 -- Set up Database
 CREATE OR REPLACE DATABASE PublicTransportation;
 
 -- set up table
-CREATE OR REPLACE TABLE Public.DIM_BUS(
-	bus_code int NOT NULL,
-	number_of_seat int NOT NULL,
-	type nvarchar(10) NOT NULL
+
+CREATE OR REPLACE TABLE DIM_BUSTYPE
+(
+	bus_type_id INT NOT NULL,
+	bus_type VARCHAR(50) NOT NULL,
+  modifiled_date DATETIME NOT NULL
 );
 
-CREATE OR REPLACE TABLE Public.DIM_BUSSTOP(
-	bus_stop_id int NOT NULL,
-    route_id int NOT NULL,
-	name nvarchar(100) NOT NULL,
-	street nvarchar(100) NOT NULL,
-	district int NOT NULL,
-    latitude float NOT NULL,
-	longtitude float NOT NULL,
-	arrival_time time(7) NULL
+CREATE OR REPLACE TABLE DIM_BUSROUTE
+(
+	route_id VARCHAR(50)  NOT NULL,
+	route_name VARCHAR(50) NOT NULL,
+	depart_address VARCHAR(50) NOT NULL,
+  frequency INT NOT NULL,
+	operating_start_hour TIME NOT NULL,
+  operating_end_hour TIME NOT NULL,
+  modifiled_date DATETIME NOT NULL
 );
 
-CREATE OR REPLACE TABLE Public.DIM_ROUTE(
-	route_id int NOT NULL,
-	agency_id int NOT NULL,
-	route_name nvarchar(50) NOT NULL,
-	departure_name nvarchar(50) NOT NULL,
-	destination_name nvarchar(50) NOT NULL,
-	duration int NOT NULL,
-	fare int NOT NULL,
-	frequency int NOT NULL,
-	number_of_stop int NOT NULL,
-	number_of_bus int NOT NULL,
-	operating_hour_start time(7) NOT NULL,
-	operating_hour_end time(7) NOT NULL,
-	distance int NOT NULL
+
+CREATE OR REPLACE TABLE DIM_BUSINFO
+(
+	bus_code VARCHAR(50) NOT NULL,
+	seat_capacity INT NOT NULL,
+	max_capacity INT NOT NULL,
+  modifiled_date DATETIME NOT NULL
 );
 
-CREATE OR REPLACE TABLE Public.FACT_TRIP(
-	trip_id int NOT NULL,
-	bus_code int NOT NULL,
-    bus_stop_id int NOT NULL,
-    stop_time_id int NOT NULL,
-    route_id int NOT NULL,
-	trip_headsign nvarchar(150) NOT NULL,
-    date_stop date NOT NULL,
-	time_stop time(7) NOT NULL,
-	number_of_ticket int NOT NULL
+CREATE OR REPLACE TABLE DIM_BUSCALENDAR
+(
+  date_id VARCHAR(50) NOT NULL,
+  date DATE NOT NULL,
+  week_day VARCHAR(50) NOT NULL,
+  day TINYINT NOT NULL,
+  month TINYINT NOT NULL,
+  year INT NOT NULL
 );
 
-CREATE OR REPLACE TABLE Public.STAGE_BUSSTOP(
-	bus_stop_id int NOT NULL,
-	name nvarchar(100) NOT NULL,
-	street nvarchar(100) NOT NULL,
-	district int NOT NULL,
-    latitude float NOT NULL,
-	longtitude float NOT NULL
-);
-
-CREATE OR REPLACE TABLE Public.STAGE_TRIP(
-	trip_id int NOT NULL,
-	bus_code int NOT NULL,
-	trip_headsign nvarchar(150) NOT NULL,
-    date_stop date NOT NULL,
-	time_stop time(7) NOT NULL,
-	number_of_ticket int NOT NULL
-);
-
-CREATE OR REPLACE TABLE Public.STAGE_STOPROUTE(
-	bus_stop_id int NULL,
-	route_id int NULL,
-	arrival_time time(7) NULL
-);
-  
-CREATE OR REPLACE TABLE Public.STAGE_STOPTIME(
-	stop_time_id int NOT NULL,
-	trip_id int NOT NULL,
-	bus_stop_id int NOT NULL
+CREATE OR REPLACE TABLE FACT_BUSTRIP(
+  trip_id VARCHAR(50) NOT NULL,
+  bus_code VARCHAR(50) NOT NULL,
+  route_id VARCHAR(50) NOT NULL,
+  bus_type_id INT NOT NULL,
+  date_id VARCHAR(50) NOT NULL,
+  date DATE NOT NULL,
+  depart_time TIME NOT NULL,
+  arrival_time TIME NOT NULL,
+  is_rush_hour VARCHAR(50) NOT NULL,
+  real_duration FLOAT NOT NULL,
+  standard_duration INT NOT NULL,
+  status VARCHAR(50) NOT NULL,
+  number_of_busstop INT NOT NULL,
+  route_distance FLOAT NOT NULL,
+  average_velocity FLOAT NOT NULL,
+  number_of_ticket INT NOT NULL,
+  fare FLOAT NOT NULL,
+  revenue FLOAT NOT NULL,
+  modifiled_date DATETIME NOT NULL
 );
 
 -- Create csv file format
