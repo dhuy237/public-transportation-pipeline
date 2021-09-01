@@ -1,5 +1,6 @@
 import csv
 import os
+import shutil
 import random
 import time
 from datetime import datetime
@@ -18,7 +19,12 @@ time_stamp = datetime.now().strftime("%Y_%m_%d-%I_%M_%S_%p")
 
 # Set up file path
 home_path = os.getenv('USERPROFILE')
+dir_path = os.path.dirname(os.path.abspath(__file__))
 project_path = home_path + '\\project'
+snowPut_path = dir_path + '\\snowPut.bat'
+ssisPut_path = dir_path + '\\ssisPut.sql'
+snowGet_path = dir_path + '\\snowGet.bat'
+ssisGet_path = dir_path + '\\ssisGet.sql'
 raw_folder_path = project_path + '\\raw-folder'
 work_folder_path = project_path + '\\work-folder'
 log_folder_path = project_path + '\\log-folder'
@@ -119,7 +125,7 @@ def create_bus_trip():
         writer = csv.DictWriter(csvFile, fieldnames=fieldnames)
         writer.writeheader()
         
-        while (start_timestamp < NOW_TIME):
+        while (start_timestamp + int(16.5*3600) < NOW_TIME):
             # trip for bus
             tracking_timestamp = start_timestamp 
             for i in range(1, 30):
@@ -182,7 +188,7 @@ def create_bus_trip():
                     )
                 tracking_timestamp += 30*60
             # trip for express bus
-            tracking_timestamp = start_timestamp
+            etracking_timestamp = start_timestamp
             for i in range(1, 58):
                 if i % 6 == 1:
                     active_ebus_a = ebus_a[:10]
@@ -203,16 +209,16 @@ def create_bus_trip():
                     active_ebus_a = ebus_a[50:]
                     active_ebus_b = ebus_b[50:]
                 for j in range(0, 10):
-                    start_datetime = datetime.fromtimestamp(tracking_timestamp)
+                    start_datetime = datetime.fromtimestamp(etracking_timestamp)
                     depart_time = start_datetime.strftime("%H:%M:%S")
                     rush_hour = is_rush_hour(depart_time)
-                    arrival_datetime_a = datetime.fromtimestamp(tracking_timestamp + random.randint(95*60, 100*60)) if rush_hour else datetime.fromtimestamp(tracking_timestamp + random.randint(75*60, 955*60))
+                    arrival_datetime_a = datetime.fromtimestamp(etracking_timestamp + random.randint(95*60, 100*60)) if rush_hour else datetime.fromtimestamp(etracking_timestamp + random.randint(75*60, 95*60))
                     # trip bus from A
                     running_ebus_a = active_ebus_a[j]
                     route_id_a = BUS_INFO[running_ebus_a]
                     writer.writerow(
                         {
-                            'trip_id':running_ebus_a+ '_' +str(tracking_timestamp),
+                            'trip_id':running_ebus_a+ '_' +str(etracking_timestamp),
                             'bus_type': 2,
                             'bus_code': running_ebus_a,
                             'route_id': route_id_a,
@@ -226,12 +232,12 @@ def create_bus_trip():
                     )
                     # trip bus from B
                     # depart_time = start_datetime.strftime("%H:%M:%S")
-                    arrival_datetime_a = datetime.fromtimestamp(tracking_timestamp + random.randint(95*60, 100*60)) if rush_hour else datetime.fromtimestamp(tracking_timestamp + random.randint(75*60, 955*60))
+                    arrival_datetime_a = datetime.fromtimestamp(etracking_timestamp + random.randint(95*60, 100*60)) if rush_hour else datetime.fromtimestamp(etracking_timestamp + random.randint(75*60, 95*60))
                     running_ebus_b = active_ebus_b[j]
                     route_id_b = BUS_INFO[running_ebus_b]
                     writer.writerow(
                         {
-                            'trip_id':running_ebus_b+ '_' +str(tracking_timestamp),
+                            'trip_id':running_ebus_b+ '_' +str(etracking_timestamp),
                             'bus_type': 2,
                             'bus_code': running_ebus_b,
                             'route_id': route_id_b,
@@ -243,7 +249,7 @@ def create_bus_trip():
                             'is_rush_hour': rush_hour
                         }
                     )
-                tracking_timestamp += 15*60
+                etracking_timestamp += 15*60
             start_timestamp += 86400
 
 if __name__ == '__main__':
@@ -259,6 +265,30 @@ if __name__ == '__main__':
         os.mkdir(log_folder_path)
     if not os.path.isdir(buffer_folder_path):
         os.mkdir(buffer_folder_path)
+
+    try:
+        shutil.copy(ssisPut_path, project_path)
+        shutil.copy(ssisGet_path, project_path)
+        shutil.copy(snowPut_path, project_path)
+        shutil.copy(snowGet_path, project_path)
+        print("Files copied successfully.")
+ 
+    # If source and destination are same
+    except shutil.SameFileError:
+        print("Source and destination represents the same file.")
+    
+    # If destination is a directory.
+    except IsADirectoryError:
+        print("Destination is a directory.")
+    
+    # If there is any permission issue
+    except PermissionError:
+        print("Permission denied.")
+    
+    # For other errors
+    except:
+        print("Error occurred while copying file.")
+
     create_bus_type()
     create_bus_route()
     create_bus_info()
