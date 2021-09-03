@@ -85,142 +85,77 @@ CREATE OR REPLACE TABLE Public.STAGE_STOPTIME(
 );
 
 -- Create csv file format
-CREATE OR REPLACE FILE FORMAT csv_format
-type = csv field_delimiter = ',' field_optionally_enclosed_by='"';
+CREATE FILE FORMAT CSV_FORMAT
+TYPE = CSV
+FIELD_DELIMITER = ','
+FIELD_OPTIONALLY_ENCLOSED_BY = '"'
+SKIP_HEADER = 1
+DATE_FORMAT = 'YYYY-MM-DD';
 
--- Set up Snowpipe
-create or replace stage publictransportation.Public.bus_stage;
-create or replace stage publictransportation.Public.busstop_stage;
-create or replace stage publictransportation.Public.stoproute_stage;
-create or replace stage publictransportation.Public.route_stage;
-create or replace stage publictransportation.Public.stoptime_stage;
-create or replace stage publictransportation.Public.trip_stage;
+-- Create Stages
+CREATE STAGE UPLOAD_STAGE
+FILE_FORMAT = CSV_FORMAT;
 
--- Create Bus pipe
-create or replace pipe publictransportation.public.bus_pipe
-as
-copy into publictransportation.public.DIM_BUS
-from (
-  select t.$1, t.$3, t.$4
-  from @publictransportation.public.bus_stage t
-)
-file_format = csv_format;
+CREATE STAGE UNLOAD_STAGE
+FILE_FORMAT = CSV_FORMAT;
 
--- Create Route pipe
-create or replace pipe publictransportation.public.route_pipe
-as
-copy into publictransportation.public.DIM_ROUTE
-from (
-  select t.*
-  from @publictransportation.public.route_stage t
-)
-file_format = csv_format;
+-- Create Tasks to load data from stage to tables in PublicTransportation DB
+USE ROLE ACCOUNTADMIN;
 
--- Create Bus stop pipe
-create or replace pipe publictransportation.public.busstop_pipe
-as
-copy into publictransportation.public.STAGE_BUSSTOP
-from (
-  select t.*
-  from @publictransportation.public.busstop_stage t
-)
-file_format = csv_format;
-
--- Create Trip pipe
-create or replace pipe publictransportation.public.trip_pipe
-as
-copy into publictransportation.public.STAGE_TRIP
-from (
-  select t.*
-  from @publictransportation.public.trip_stage t
-)
-file_format = csv_format;
-
--- Create Stop route pipe
-create or replace pipe publictransportation.public.stoproute_pipe
-as
-copy into publictransportation.public.STAGE_STOPROUTE
-from (
-  select t.*
-  from @publictransportation.public.stoproute_stage t
-)
-file_format = csv_format;
-
--- Create Stop time pipe
-create or replace pipe publictransportation.public.stoptime_pipe
-as
-copy into publictransportation.public.STAGE_STOPTIME
-from (
-  select t.*
-  from @publictransportation.public.stoptime_stage t
-)
-file_format = csv_format;
-
--- Task
--- Use ACCOUNTADMIN to create and run tasks
-USE ROLE accountadmin;
-
--- Task for transforming data to before load to DIM_BUSSTOP table
-CREATE OR REPLACE TASK ADD_DIM_BUSSTOP
-  WAREHOUSE = COMPUTE_TRANSFORM
-  SCHEDULE = '30 minute'
+CREATE TASK add_BusCalendar
+  WAREHOUSE = TRANSPORT_WH
+	SCHEDULE = 'USING CRON 30 11 * * * Asia/Ho_Chi_Minh'
+  COMMENT = 'Add BusCalendar TABLE'
 AS
-  INSERT INTO publictransportation.public.DIM_BUSSTOP(bus_stop_id, route_id, name, street, district, latitude, longtitude, arrival_time)
-  SELECT bsr.bus_stop_id, bsr.route_id, bsr.name, bsr.street, bsr.district, bsr.latitude, bsr.longtitude, bsr.arrival_time
-  FROM (
-    select bs.bus_stop_id, bs.name, bs.street, bs.district, bs.latitude, bs.longtitude, sr.route_id, sr.arrival_time
-    from publictransportation.public.STAGE_BUSSTOP as bs
-    join publictransportation.public.STAGE_STOPROUTE as sr
-    on bs.bus_stop_id = sr.bus_stop_id
-  ) as bsr;
+COPY INTO BUSCALENDAR_STAGE
+FROM @UPLOAD_STAGE/Dim_Calendar.csv.gz;
 
--- Task for transforming data to before load to FACT_TRIP table
-CREATE OR REPLACE TASK ADD_FACT_TRIP
-  WAREHOUSE = COMPUTE_TRANSFORM
-  SCHEDULE = '1 minute'
+CREATE TASK add_BusType
+  WAREHOUSE = TRANSPORT_WH
+  AFTER add_BusCalendar
+  COMMENT = 'Add Bustype TABLE'
 AS
-  INSERT INTO publictransportation.public.FACT_TRIP(trip_id, bus_code, bus_stop_id, stop_time_id, route_id, trip_headsign, date_stop, time_stop, number_of_ticket)
-  SELECT tsr.trip_id, tsr.bus_code, tsr.bus_stop_id, tsr.stop_time_id, tsr.route_id, tsr.trip_headsign, tsr.date_stop, tsr.time_stop, tsr.number_of_ticket 
-  FROM (
-    select t.trip_id, t.bus_code, st.bus_stop_id, st.stop_time_id, sr.route_id, t.trip_headsign, t.date_stop, t.time_stop, t.number_of_ticket 
-    from publictransportation.public.STAGE_TRIP as t
-    join publictransportation.public.STAGE_STOPTIME as st
-    on t.trip_id = st.trip_id
-    join publictransportation.public.STAGE_STOPROUTE as sr
-    on st.bus_stop_id = sr.bus_stop_id
-  ) as tsr;
+COPY INTO BUSTYPE_STAGE
+FROM @UPLOAD_STAGE/Dim_BusType.csv.gz;
 
--- Task to remove stage table STAGE_BUSSTOP
-CREATE TASK REMOVE_STAGE_DIM_BUSSTOP
-  WAREHOUSE = COMPUTE_TRANSFORM
-  AFTER ADD_DIM_BUSSTOP
+CREATE TASK add_BusRoute
+  WAREHOUSE = TRANSPORT_WH
+  AFTER add_BusType
+  COMMENT = 'Add BusRoute TABLE'
 AS
-DELETE FROM publictransportation.public.STAGE_BUSSTOP;
+COPY INTO BUSROUTE_STAGE
+FROM @UPLOAD_STAGE/Dim_BusRoute.csv.gz;
 
--- Task to remove stage table STAGE_TRIP
-CREATE TASK REMOVE_STAGE_FACT_TRIP
-  WAREHOUSE = COMPUTE_TRANSFORM
-  AFTER ADD_FACT_TRIP
+CREATE TASK add_BusInfo
+  WAREHOUSE = TRANSPORT_WH
+  AFTER add_BusRoute
+  COMMENT = 'Add BusInfo TABLE'
 AS
-DELETE FROM publictransportation.public.STAGE_TRIP;
+COPY INTO BUSINFO_STAGE
+FROM @UPLOAD_STAGE/Dim_BusInfo.csv.gz;
 
--- Task to remove stage table STAGE_STOPTIME
-CREATE TASK REMOVE_STAGE_STOPTIME
-  WAREHOUSE = COMPUTE_TRANSFORM
-  AFTER ADD_FACT_TRIP
+CREATE TASK add_BusTrip
+  WAREHOUSE = TRANSPORT_WH
+  AFTER add_BusInfo
+  COMMENT = 'Add BusTrip TABLE'
 AS
-DELETE FROM publictransportation.public.STAGE_STOPTIME;
+COPY INTO BUSTRIP_STAGE
+FROM @UPLOAD_STAGE/FACT_BusTrip.csv.gz;
 
--- Task to remove stage table STAGE_STOPROUTE
-CREATE TASK REMOVE_STAGE_STOPROUTE
-  WAREHOUSE = COMPUTE_TRANSFORM
-  AFTER ADD_FACT_TRIP
+CREATE TASK remove_files_in_upload_stage
+  WAREHOUSE = TRANSPORT_WH
+  AFTER add_BusTrip
+  COMMENT = 'Remove files in upload stage'
 AS
-DELETE FROM publictransportation.public.STAGE_STOPROUTE;
+REMOVE @UPLOAD_STAGE;
 
-alter task REMOVE_STAGE_DIM_BUSSTOP resume;
-alter task REMOVE_STAGE_FACT_TRIP resume;
-alter task REMOVE_STAGE_STOPTIME resume;
-alter task REMOVE_STAGE_STOPROUTE resume;
-alter task ADD_DIM_BUSSTOP resume;
-alter task ADD_FACT_TRIP resume;
+GRANT EXECUTE TASK ON ACCOUNT TO ROLE DE_ROLE;
+
+ALTER TASK add_BusTrip RESUME;
+ALTER TASK add_BusInfo RESUME;
+ALTER TASK add_BusRoute RESUME;
+ALTER TASK add_BusType RESUME;
+ALTER TASK add_BusCalendar RESUME;
+ALTER TASK remove_files_in_upload_stage RESUME;
+
+
