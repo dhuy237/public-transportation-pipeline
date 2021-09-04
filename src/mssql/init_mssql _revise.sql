@@ -1,6 +1,6 @@
 --Create database
 CREATE DATABASE [PublicTransportation];
-
+GO
 USE [PublicTransportation];
 GO
 CREATE SCHEMA [Bus];
@@ -107,7 +107,6 @@ TheMonth, TheYear FROM src
 
 
 -- Add constraints
-
 ---BusRoute
 ALTER TABLE [Bus].[BusRoute]
 WITH CHECK
@@ -148,22 +147,23 @@ ALTER TABLE [Bus].[BusTrip] CHECK CONSTRAINT [FK_dateid];
 GO
 
 --Create Views
+GO
 CREATE VIEW [V_Dim_BusType] AS
 SELECT [bus_type_id], [bus_type], [modified_date]
 FROM [Bus].[BusType];
-
+GO
 CREATE VIEW [V_Dim_BusRoute] AS
 SELECT [route_id], [route_name], [depart_address],[frequency],
        [operating_start_hour], [operating_end_hour], [modified_date]
 FROM [Bus].[BusRoute];
-
+GO
 CREATE VIEW [V_Dim_BusInfo] AS
 SELECT [bus_code],
 	[seat_capacity],
 	[max_capacity],
 	[modified_date]
 FROM [Bus].[BusInfo];
-
+GO
 CREATE VIEW [V_A] AS
 SELECT [Bus].[BusInfo].[bus_code],
   [Bus].[BusInfo].[route_id],
@@ -179,7 +179,7 @@ LEFT JOIN ( SELECT [Bus].[BusRoute].[route_id], [Bus].[BusType].[fare]
 			 LEFT JOIN [Bus].[BusType] ON [Bus].[BusRoute].[bus_type_id] = [Bus].[BusType].[bus_type_id]
 		  ) B ON [Bus].[BusInfo].[route_id] = B.[route_id] 
 ;
-
+GO
 CREATE VIEW [V_Fact_BusTrip] AS
 SELECT [Bus].[BusTrip].[trip_id] AS [trip_id],
        [Bus].[BusTrip].[bus_code] AS [bus_code],
@@ -204,7 +204,7 @@ FROM [Bus].[BusTrip]
 LEFT JOIN [V_A] ON [Bus].[BusTrip].[bus_code] = [V_A].[bus_code]
 LEFT JOIN [Bus].[BusCalendar] ON [Bus].[BusTrip].[date_id] = [Bus].[BusCalendar].[date_id]
 ;
-
+GO
 --Create A Log Table To Track Changes To Database Objects
 USE [PublicTransportation]
 GO
