@@ -162,7 +162,7 @@ def create_bus_trip():
                             'date': start_datetime.strftime("%Y-%m-%d"),
                             'depart_time': depart_time,
                             'arrival_time': arrival_datetime_a.strftime("%H:%M:%S"),
-                            'number_of_ticket': random.randint(180, 200) if rush_hour else random.randint(100, 180),
+                            'number_of_ticket': random.randint(140, 160) if rush_hour else random.randint(100, 120),
                             'is_rush_hour': rush_hour
 
                         }
@@ -182,7 +182,7 @@ def create_bus_trip():
                             'date': start_datetime.strftime("%Y-%m-%d"),
                             'depart_time': depart_time,
                             'arrival_time': arrival_datetime_b.strftime("%H:%M:%S"),
-                            'number_of_ticket': random.randint(180, 200) if rush_hour else random.randint(100, 180),
+                            'number_of_ticket': random.randint(140, 160) if rush_hour else random.randint(100, 120),
                             'is_rush_hour': rush_hour
                         }
                     )
@@ -226,7 +226,7 @@ def create_bus_trip():
                             'date': start_datetime.strftime("%Y-%m-%d"),
                             'depart_time': depart_time,
                             'arrival_time': arrival_datetime_a.strftime("%H:%M:%S"),
-                            'number_of_ticket': random.randint(100, 120) if rush_hour else random.randint(60, 100),
+                            'number_of_ticket': random.randint(100, 110) if rush_hour else random.randint(60, 90),
                             'is_rush_hour': rush_hour
                         }
                     )
@@ -245,7 +245,7 @@ def create_bus_trip():
                             'date': start_datetime.strftime("%Y-%m-%d"),
                             'depart_time': depart_time,
                             'arrival_time': arrival_datetime_a.strftime("%H:%M:%S"),
-                            'number_of_ticket': random.randint(100, 120) if rush_hour else random.randint(60, 100),
+                            'number_of_ticket': random.randint(100, 110) if rush_hour else random.randint(60, 90),
                             'is_rush_hour': rush_hour
                         }
                     )
