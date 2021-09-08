@@ -1,6 +1,6 @@
 --Create database
 CREATE DATABASE [PublicTransportation];
-
+GO
 USE [PublicTransportation];
 GO
 CREATE SCHEMA [Bus];
@@ -107,7 +107,6 @@ TheMonth, TheYear FROM src
 
 
 -- Add constraints
-
 ---BusRoute
 ALTER TABLE [Bus].[BusRoute]
 WITH CHECK
@@ -148,15 +147,17 @@ ALTER TABLE [Bus].[BusTrip] CHECK CONSTRAINT [FK_dateid];
 GO
 
 --Create Views
+GO
 CREATE VIEW [V_Dim_BusType] AS
 SELECT [bus_type_id], [bus_type], [modified_date]
 FROM [Bus].[BusType];
-
+GO
 CREATE VIEW [V_Dim_BusRoute] AS
 SELECT [route_id], [route_name], [depart_address],[frequency],
        [operating_start_hour], [operating_end_hour], [modified_date]
 FROM [Bus].[BusRoute];
 
+GO
 CREATE VIEW [V_Dim_BusInfo] AS
 SELECT [bus_code],
 	[seat_capacity],
@@ -164,6 +165,7 @@ SELECT [bus_code],
 	[modified_date]
 FROM [Bus].[BusInfo];
 
+GO
 CREATE VIEW [V_A] AS
 SELECT [Bus].[BusInfo].[bus_code],
   [Bus].[BusInfo].[route_id],
@@ -177,9 +179,9 @@ LEFT JOIN [Bus].[BusRoute] ON [Bus].[BusInfo].[route_id] = [Bus].[BusRoute].[rou
 LEFT JOIN ( SELECT [Bus].[BusRoute].[route_id], [Bus].[BusType].[fare]
              FROM [Bus].[BusRoute]
 			 LEFT JOIN [Bus].[BusType] ON [Bus].[BusRoute].[bus_type_id] = [Bus].[BusType].[bus_type_id]
-		  ) B ON [Bus].[BusInfo].[route_id] = B.[route_id] 
-;
+		  ) B ON [Bus].[BusInfo].[route_id] = B.[route_id];
 
+GO
 CREATE VIEW [V_Fact_BusTrip] AS
 SELECT [Bus].[BusTrip].[trip_id] AS [trip_id],
        [Bus].[BusTrip].[bus_code] AS [bus_code],
@@ -202,15 +204,8 @@ SELECT [Bus].[BusTrip].[trip_id] AS [trip_id],
 	   [Bus].[BusTrip].[modified_date] AS [modified_date]
 FROM [Bus].[BusTrip]
 LEFT JOIN [V_A] ON [Bus].[BusTrip].[bus_code] = [V_A].[bus_code]
-LEFT JOIN [Bus].[BusCalendar] ON [Bus].[BusTrip].[date_id] = [Bus].[BusCalendar].[date_id]
-
-
-
-
-
-
-
-
+LEFT JOIN [Bus].[BusCalendar] ON [Bus].[BusTrip].[date_id] = [Bus].[BusCalendar].[date_id];
+GO
 
 --Create A Log Table To Track Changes To Database Objects
 USE [PublicTransportation]
@@ -232,11 +227,11 @@ CREATE TABLE [ChangeLog]
     [sql_command] VARCHAR(MAX) NOT NULL,
     [event_date] DATETIME NOT NULL,
     [login_name] VARCHAR(256) NOT NULL
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY];
 GO
  
 ALTER TABLE [ChangeLog]
-ADD CONSTRAINT [DF_EventsLog_EventDate] DEFAULT (GETDATE()) FOR [event_date]
+ADD CONSTRAINT [DF_EventsLog_EventDate] DEFAULT (GETDATE()) FOR [event_date];
 GO
 
 --Create triggers
@@ -276,24 +271,22 @@ USE [PublicTransportation]
  GO
 
   ---Create trigger to update [modified_date] for [Bus].[BusInfo] table
- USE [PublicTransportation]
- GO
- SET ANSI_NULLS ON
- GO
- SET QUOTED_IDENTIFIER ON
- GO
- CREATE TRIGGER [Bus].[bustrip_modified_date] ON [Bus].[BusTrip] FOR INSERT, UPDATE AS
- BEGIN
-     SET NOCOUNT ON;
-     UPDATE [Bus].[BusTrip]
-     SET [Bus].[BusTrip].[modified_date] = CURRENT_TIMESTAMP
-     FROM [Bus].[BusTrip] INNER JOIN inserted i ON [Bus].[BusTrip].[trip_id] = i.[trip_id]
-	 WHERE [Bus].[BusTrip].[modified_date] is NULL
- END;
- GO
+SET ANSI_NULLS ON
+GO
 
- ALTER TABLE [Bus].[BusTrip] ENABLE TRIGGER [bustrip_modified_date]
- GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ CREATE TRIGGER [Bus].[businfo_modified_date] on [Bus].[BusInfo] AFTER INSERT, UPDATE AS
+ BEGIN
+     UPDATE [Bus].[BusInfo]
+     SET [modified_date] = CURRENT_TIMESTAMP
+     FROM [Bus].[BusInfo] INNER JOIN inserted i ON [Bus].[BusInfo].[bus_code] = i.[bus_code]
+ END;
+GO
+
+ALTER TABLE [Bus].[BusInfo] ENABLE TRIGGER [businfo_modified_date];
+GO
 
  ---Create trigger to update [modified_date] for [Bus].[BusTrip] table
  USE [PublicTransportation]

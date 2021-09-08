@@ -8,11 +8,74 @@ AUTO_RESUME = TRUE
 INITIALLY_SUSPENDED = FALSE
 COMMENT = 'This warehouse is used for transportation project demo.';
 
-DROP TABLE FACT_BUSTRIP
--- Set up Database
-CREATE OR REPLACE DATABASE PublicTransportation;
+-- Set up Database for Temporory Tables
+CREATE OR REPLACE DATABASE PUBLICTRANSPORTATION;
 
--- set up table
+-- Set up tables for Database PUBLICTRANSPORTATION
+
+CREATE OR REPLACE TABLE BUSTYPE_STAGE
+(
+	bus_type_id INT NOT NULL,
+	bus_type VARCHAR(50) NOT NULL,
+  modifiled_date DATETIME NOT NULL
+);
+
+CREATE OR REPLACE TABLE BUSROUTE_STAGE
+(
+	route_id VARCHAR(50)  NOT NULL,
+	route_name VARCHAR(50) NOT NULL,
+	depart_address VARCHAR(50) NOT NULL,
+  frequency INT NOT NULL,
+	operating_start_hour TIME NOT NULL,
+  operating_end_hour TIME NOT NULL,
+  modifiled_date DATETIME NOT NULL
+);
+
+CREATE OR REPLACE TABLE BUSINFO_STAGE
+(
+	bus_code VARCHAR(50) NOT NULL,
+	seat_capacity INT NOT NULL,
+	max_capacity INT NOT NULL,
+  modifiled_date DATETIME NOT NULL
+);
+
+CREATE OR REPLACE TABLE BUSCALENDAR_STAGE
+(
+  date_id VARCHAR(50) NOT NULL,
+  date DATE NOT NULL,
+  week_day VARCHAR(50) NOT NULL,
+  day TINYINT NOT NULL,
+  month TINYINT NOT NULL,
+  year INT NOT NULL
+);
+
+CREATE OR REPLACE TABLE BUSTRIP_STAGE
+(
+  trip_id VARCHAR(50) NOT NULL,
+  bus_code VARCHAR(50) NOT NULL,
+  route_id VARCHAR(50) NOT NULL,
+  bus_type_id INT NOT NULL,
+  date_id VARCHAR(50) NOT NULL,
+  date DATE NOT NULL,
+  depart_time TIME NOT NULL,
+  arrival_time TIME NOT NULL,
+  is_rush_hour VARCHAR(50) NOT NULL,
+  real_duration FLOAT NOT NULL,
+  standard_duration INT NOT NULL,
+  status VARCHAR(50) NOT NULL,
+  number_of_busstop INT NOT NULL,
+  route_distance FLOAT NOT NULL,
+  average_velocity FLOAT NOT NULL,
+  number_of_ticket INT NOT NULL,
+  fare FLOAT NOT NULL,
+  revenue FLOAT NOT NULL,
+  modifiled_date DATETIME NOT NULL
+);
+
+-- Set up Database for Dimensional Model
+CREATE OR REPLACE DATABASE WAREHOUSE_DB;
+
+-- Set up tables for Database WAREHOUSE_DB
 
 CREATE OR REPLACE TABLE DIM_BUSTYPE
 (
@@ -32,7 +95,6 @@ CREATE OR REPLACE TABLE DIM_BUSROUTE
   modifiled_date DATETIME NOT NULL
 );
 
-
 CREATE OR REPLACE TABLE DIM_BUSINFO
 (
 	bus_code VARCHAR(50) NOT NULL,
@@ -51,7 +113,8 @@ CREATE OR REPLACE TABLE DIM_BUSCALENDAR
   year INT NOT NULL
 );
 
-CREATE OR REPLACE TABLE FACT_BUSTRIP(
+CREATE OR REPLACE TABLE FACT_BUSTRIP
+(
   trip_id VARCHAR(50) NOT NULL,
   bus_code VARCHAR(50) NOT NULL,
   route_id VARCHAR(50) NOT NULL,
@@ -74,142 +137,222 @@ CREATE OR REPLACE TABLE FACT_BUSTRIP(
 );
 
 -- Create csv file format
-CREATE OR REPLACE FILE FORMAT csv_format
-type = csv field_delimiter = ',' field_optionally_enclosed_by='"';
+CREATE FILE FORMAT CSV_FORMAT
+TYPE = CSV
+FIELD_DELIMITER = ','
+FIELD_OPTIONALLY_ENCLOSED_BY = '"'
+SKIP_HEADER = 1
+DATE_FORMAT = 'YYYY-MM-DD';
 
--- Set up Snowpipe
-create or replace stage publictransportation.Public.bus_stage;
-create or replace stage publictransportation.Public.busstop_stage;
-create or replace stage publictransportation.Public.stoproute_stage;
-create or replace stage publictransportation.Public.route_stage;
-create or replace stage publictransportation.Public.stoptime_stage;
-create or replace stage publictransportation.Public.trip_stage;
+-- Create Stages
+CREATE STAGE UPLOAD_STAGE
+FILE_FORMAT = CSV_FORMAT;
 
--- Create Bus pipe
-create or replace pipe publictransportation.public.bus_pipe
-as
-copy into publictransportation.public.DIM_BUS
-from (
-  select t.$1, t.$3, t.$4
-  from @publictransportation.public.bus_stage t
-)
-file_format = csv_format;
+CREATE STAGE UNLOAD_STAGE
+FILE_FORMAT = CSV_FORMAT;
 
--- Create Route pipe
-create or replace pipe publictransportation.public.route_pipe
-as
-copy into publictransportation.public.DIM_ROUTE
-from (
-  select t.*
-  from @publictransportation.public.route_stage t
-)
-file_format = csv_format;
+-- Create Tasks to load data from stage to tables in PublicTransportation DB
+USE ROLE ACCOUNTADMIN;
+ALTER ACCOUNT SET TIMEZONE = 'Asia/Ho_Chi_Minh'
 
--- Create Bus stop pipe
-create or replace pipe publictransportation.public.busstop_pipe
-as
-copy into publictransportation.public.STAGE_BUSSTOP
-from (
-  select t.*
-  from @publictransportation.public.busstop_stage t
-)
-file_format = csv_format;
-
--- Create Trip pipe
-create or replace pipe publictransportation.public.trip_pipe
-as
-copy into publictransportation.public.STAGE_TRIP
-from (
-  select t.*
-  from @publictransportation.public.trip_stage t
-)
-file_format = csv_format;
-
--- Create Stop route pipe
-create or replace pipe publictransportation.public.stoproute_pipe
-as
-copy into publictransportation.public.STAGE_STOPROUTE
-from (
-  select t.*
-  from @publictransportation.public.stoproute_stage t
-)
-file_format = csv_format;
-
--- Create Stop time pipe
-create or replace pipe publictransportation.public.stoptime_pipe
-as
-copy into publictransportation.public.STAGE_STOPTIME
-from (
-  select t.*
-  from @publictransportation.public.stoptime_stage t
-)
-file_format = csv_format;
-
--- Task
--- Use ACCOUNTADMIN to create and run tasks
-USE ROLE accountadmin;
-
--- Task for transforming data to before load to DIM_BUSSTOP table
-CREATE OR REPLACE TASK ADD_DIM_BUSSTOP
-  WAREHOUSE = COMPUTE_TRANSFORM
-  SCHEDULE = '30 minute'
+--- UPDATE DIM_BUSCALENDAR
+CREATE OR REPLACE TASK add_BusCalendar
+  WAREHOUSE = TRANSPORT_WH
+    SCHEDULE = 'USING CRON 30 15 4 9 * Asia/Ho_Chi_Minh'
+  COMMENT = 'Add BusCalendar TABLE'
 AS
-  INSERT INTO publictransportation.public.DIM_BUSSTOP(bus_stop_id, route_id, name, street, district, latitude, longtitude, arrival_time)
-  SELECT bsr.bus_stop_id, bsr.route_id, bsr.name, bsr.street, bsr.district, bsr.latitude, bsr.longtitude, bsr.arrival_time
-  FROM (
-    select bs.bus_stop_id, bs.name, bs.street, bs.district, bs.latitude, bs.longtitude, sr.route_id, sr.arrival_time
-    from publictransportation.public.STAGE_BUSSTOP as bs
-    join publictransportation.public.STAGE_STOPROUTE as sr
-    on bs.bus_stop_id = sr.bus_stop_id
-  ) as bsr;
+COPY INTO BUSCALENDAR_STAGE
+FROM @UPLOAD_STAGE/BusCalendar_Stage.csv.gz;
 
--- Task for transforming data to before load to FACT_TRIP table
-CREATE OR REPLACE TASK ADD_FACT_TRIP
-  WAREHOUSE = COMPUTE_TRANSFORM
-  SCHEDULE = '1 minute'
+CREATE OR REPLACE TASK LOAD_DIM_BUSCALENDAR
+  WAREHOUSE = TRANSPORT_WH
+  AFTER add_BusCalendar
 AS
-  INSERT INTO publictransportation.public.FACT_TRIP(trip_id, bus_code, bus_stop_id, stop_time_id, route_id, trip_headsign, date_stop, time_stop, number_of_ticket)
-  SELECT tsr.trip_id, tsr.bus_code, tsr.bus_stop_id, tsr.stop_time_id, tsr.route_id, tsr.trip_headsign, tsr.date_stop, tsr.time_stop, tsr.number_of_ticket 
-  FROM (
-    select t.trip_id, t.bus_code, st.bus_stop_id, st.stop_time_id, sr.route_id, t.trip_headsign, t.date_stop, t.time_stop, t.number_of_ticket 
-    from publictransportation.public.STAGE_TRIP as t
-    join publictransportation.public.STAGE_STOPTIME as st
-    on t.trip_id = st.trip_id
-    join publictransportation.public.STAGE_STOPROUTE as sr
-    on st.bus_stop_id = sr.bus_stop_id
-  ) as tsr;
+  INSERT OVERWRITE INTO WAREHOUSE_DB.PUBLIC.DIM_BUSCALENDAR
+  SELECT DISTINCT *
+  FROM PUBLICTRANSPORTATION.PUBLIC.BUSCALENDAR_STAGE;
 
--- Task to remove stage table STAGE_BUSSTOP
-CREATE TASK REMOVE_STAGE_DIM_BUSSTOP
-  WAREHOUSE = COMPUTE_TRANSFORM
-  AFTER ADD_DIM_BUSSTOP
+-- Task to truncate stage table BUSCALENDAR_STAGE
+CREATE OR REPLACE TASK TRUNCATE_BUSCALENDAR_STAGE
+  WAREHOUSE = TRANSPORT_WH
+  AFTER LOAD_DIM_BUSCALENDAR
 AS
-DELETE FROM publictransportation.public.STAGE_BUSSTOP;
+TRUNCATE TABLE PUBLICTRANSPORTATION.PUBLIC.BUSCALENDAR_STAGE;
 
--- Task to remove stage table STAGE_TRIP
-CREATE TASK REMOVE_STAGE_FACT_TRIP
-  WAREHOUSE = COMPUTE_TRANSFORM
-  AFTER ADD_FACT_TRIP
+--- UPDATE DIM_BUSTYPE
+CREATE OR REPLACE TASK add_BusType
+  WAREHOUSE = TRANSPORT_WH
+  SCHEDULE = 'USING CRON 30 15 4 * * Asia/Ho_Chi_Minh'
+  COMMENT = 'Add Bustype TABLE'
+AS  
+COPY INTO BUSTYPE_STAGE
+FROM @UPLOAD_STAGE/BusType_Stage.csv.gz;
+
+CREATE OR REPLACE TASK LOAD_DIM_BUSTYPE
+  WAREHOUSE = TRANSPORT_WH
+  AFTER add_BusType
 AS
-DELETE FROM publictransportation.public.STAGE_TRIP;
+  INSERT OVERWRITE INTO WAREHOUSE_DB.PUBLIC.DIM_BUSTYPE
+  SELECT DISTINCT *
+  FROM PUBLICTRANSPORTATION.PUBLIC.BUSTYPE_STAGE;
 
--- Task to remove stage table STAGE_STOPTIME
-CREATE TASK REMOVE_STAGE_STOPTIME
-  WAREHOUSE = COMPUTE_TRANSFORM
-  AFTER ADD_FACT_TRIP
+-- Task to truncate stage table BUSTYPE_STAGE
+CREATE OR REPLACE TASK TRUNCATE_BUSTYPE_STAGE
+  WAREHOUSE = TRANSPORT_WH
+  AFTER LOAD_DIM_BUSTYPE
 AS
-DELETE FROM publictransportation.public.STAGE_STOPTIME;
+TRUNCATE TABLE PUBLICTRANSPORTATION.PUBLIC.BUSTYPE_STAGE;
 
--- Task to remove stage table STAGE_STOPROUTE
-CREATE TASK REMOVE_STAGE_STOPROUTE
-  WAREHOUSE = COMPUTE_TRANSFORM
-  AFTER ADD_FACT_TRIP
+-- UPDATE DIM_BUSROUTE
+CREATE OR REPLACE TASK add_BusRoute
+  WAREHOUSE = TRANSPORT_WH
+  SCHEDULE = 'USING CRON 30 15 4 * * Asia/Ho_Chi_Minh'
+  COMMENT = 'Add BusRoute TABLE'
 AS
-DELETE FROM publictransportation.public.STAGE_STOPROUTE;
+COPY INTO BUSROUTE_STAGE
+FROM @UPLOAD_STAGE/BusRoute_Stage.csv.gz;
 
-alter task REMOVE_STAGE_DIM_BUSSTOP resume;
-alter task REMOVE_STAGE_FACT_TRIP resume;
-alter task REMOVE_STAGE_STOPTIME resume;
-alter task REMOVE_STAGE_STOPROUTE resume;
-alter task ADD_DIM_BUSSTOP resume;
-alter task ADD_FACT_TRIP resume;
+CREATE OR REPLACE TASK LOAD_DIM_BUSROUTE
+  WAREHOUSE = TRANSPORT_WH
+  AFTER add_BusRoute
+AS
+  INSERT OVERWRITE INTO WAREHOUSE_DB.PUBLIC.DIM_BUSROUTE
+  SELECT DISTINCT *
+  FROM PUBLICTRANSPORTATION.PUBLIC.BUSROUTE_STAGE;
+
+-- Task to truncate stage table BUSROUTE_STAGE
+CREATE OR REPLACE TASK TRUNCATE_BUSROUTE_STAGE
+  WAREHOUSE = TRANSPORT_WH
+  AFTER LOAD_DIM_BUSROUTE
+AS
+TRUNCATE TABLE PUBLICTRANSPORTATION.PUBLIC.BUSROUTE_STAGE;
+
+-- UPDATE DIM_BUSINFO
+CREATE OR REPLACE TASK add_BusInfo
+  WAREHOUSE = TRANSPORT_WH
+  SCHEDULE = 'USING CRON 30 15 4 * * Asia/Ho_Chi_Minh'
+  COMMENT = 'Add BusInfo TABLE'
+AS
+COPY INTO BUSINFO_STAGE
+FROM @UPLOAD_STAGE/BusInfo_Stage.csv.gz;
+
+CREATE OR REPLACE TASK LOAD_DIM_BUSINFO
+  WAREHOUSE = TRANSPORT_WH
+  AFTER add_BusInfo
+AS
+  INSERT OVERWRITE INTO WAREHOUSE_DB.PUBLIC.DIM_BUSINFO
+  SELECT DISTINCT *
+  FROM PUBLICTRANSPORTATION.PUBLIC.BUSINFO_STAGE;
+-- Task to truncate stage table BUSINFO_STAGE
+CREATE OR REPLACE TASK TRUNCATE_BUSINFO_STAGE
+  WAREHOUSE = TRANSPORT_WH
+  AFTER LOAD_DIM_BUSINFO
+AS
+TRUNCATE TABLE PUBLICTRANSPORTATION.PUBLIC.BUSINFO_STAGE;
+
+-- UPDATE FACT_BUSTRIP
+CREATE OR REPLACE TASK add_BusTrip
+  WAREHOUSE = TRANSPORT_WH
+  SCHEDULE = 'USING CRON 30 15 * * * Asia/Ho_Chi_Minh'
+  COMMENT = 'Add BusTrip TABLE'
+AS
+COPY INTO BUSTRIP_STAGE
+FROM @UPLOAD_STAGE/BusTrip_Stage.csv.gz;
+
+CREATE OR REPLACE TASK LOAD_FACT_BUSTRIP
+  WAREHOUSE = TRANSPORT_WH
+  AFTER add_BusTrip
+AS
+  INSERT INTO WAREHOUSE_DB.PUBLIC.FACT_BUSTRIP
+  SELECT *
+  FROM PUBLICTRANSPORTATION.PUBLIC.BUSTRIP_STAGE;
+
+-- Task to truncate stage table BUSTRIP_STAGE
+CREATE OR REPLACE TASK TRUNCATE_BUSTRIP_STAGE
+  WAREHOUSE = TRANSPORT_WH
+  AFTER LOAD_FACT_BUSTRIP
+AS
+TRUNCATE TABLE PUBLICTRANSPORTATION.PUBLIC.BUSTRIP_STAGE;
+
+CREATE OR REPLACE TASK remove_files_in_upload_stage
+  WAREHOUSE = TRANSPORT_WH
+  COMMENT = 'Remove files in upload stage'
+  AFTER TRUNCATE_BUSTRIP_STAGE
+AS
+REMOVE @UPLOAD_STAGE;
+
+CREATE OR REPLACE TASK UNLOAD_FACT_BUSTRIP
+  WAREHOUSE = TRANSPORT_WH
+  SCHEDULE = 'USING CRON 5 16 * * * Asia/Ho_Chi_Minh'
+  COMMENT = 'Unload data from FACT_BUSTRIP table to unload_stage'
+AS
+COPY INTO @unload_stage/Fact_BusTrip
+FROM WAREHOUSE_DB.PUBLIC.FACT_BUSTRIP
+FILE_FORMAT = (TYPE='CSV')
+HEADER = TRUE
+OVERWRITE = TRUE;
+
+CREATE OR REPLACE TASK UNLOAD_DIM_BUSTYPE
+  WAREHOUSE = TRANSPORT_WH
+  SCHEDULE = 'USING CRON 5 16 * * * Asia/Ho_Chi_Minh'
+  COMMENT = 'Unload data from DIM_BUSTYPE table to unload_stage'
+AS
+COPY INTO @unload_stage/Dim_BusType
+FROM WAREHOUSE_DB.PUBLIC.DIM_BUSTYPE
+FILE_FORMAT = (TYPE='CSV')
+HEADER = TRUE
+OVERWRITE = TRUE;
+
+CREATE OR REPLACE TASK UNLOAD_DIM_BUSROUTE
+  WAREHOUSE = TRANSPORT_WH
+  SCHEDULE = 'USING CRON 5 16 * * * Asia/Ho_Chi_Minh'
+  COMMENT = 'Unload data from DIM_BUSROUTE table to unload_stage'
+AS
+COPY INTO @unload_stage/Dim_BusRoute
+FROM WAREHOUSE_DB.PUBLIC.DIM_BUSROUTE
+FILE_FORMAT = (TYPE='CSV')
+HEADER = TRUE
+OVERWRITE = TRUE;
+
+CREATE OR REPLACE TASK UNLOAD_DIM_BUSINFO
+  WAREHOUSE = TRANSPORT_WH
+  SCHEDULE = 'USING CRON 5 16 * * * Asia/Ho_Chi_Minh'
+  COMMENT = 'Unload data from DIM_BUSINFO table to unload_stage'
+AS
+COPY INTO @unload_stage/Dim_BusInfo
+FROM WAREHOUSE_DB.PUBLIC.DIM_BUSINFO
+FILE_FORMAT = (TYPE='CSV')
+HEADER = TRUE
+OVERWRITE = TRUE;
+
+USE ROLE ACCOUNTADMIN;
+GRANT EXECUTE TASK ON ACCOUNT TO ROLE DE_ROLE;
+USE ROLE DE_ROLE;
+
+ALTER TASK TRUNCATE_BUSCALENDAR_STAGE RESUME;
+ALTER TASK LOAD_DIM_BUSCALENDAR RESUME;
+ALTER TASK add_BusCalendar RESUME;
+
+ALTER TASK TRUNCATE_BUSTYPE_STAGE RESUME;
+ALTER TASK LOAD_DIM_BUSTYPE RESUME;
+ALTER TASK add_BusType RESUME;
+
+ALTER TASK TRUNCATE_BUSROUTE_STAGE RESUME;
+ALTER TASK LOAD_DIM_BUSROUTE RESUME;
+ALTER TASK add_BusRoute RESUME;
+
+ALTER TASK TRUNCATE_BUSINFO_STAGE RESUME;
+ALTER TASK LOAD_DIM_BUSINFO RESUME;
+ALTER TASK add_BusInfo RESUME;
+
+ALTER TASK remove_files_in_upload_stage RESUME;
+ALTER TASK TRUNCATE_BUSTRIP_STAGE RESUME;
+ALTER TASK LOAD_FACT_BUSTRIP RESUME;
+ALTER TASK add_BusTrip RESUME;
+
+ALTER TASK UNLOAD_FACT_BUSTRIP RESUME;
+ALTER TASK UNLOAD_DIM_BUSTYPE RESUME;
+ALTER TASK UNLOAD_DIM_BUSROUTE RESUME;
+ALTER TASK UNLOAD_DIM_BUSINFO RESUME;
+
+
