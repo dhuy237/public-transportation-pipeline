@@ -50,7 +50,7 @@ Building the data pipeline.
 ### Usage
 1. Generate data: `python resources/data-generator.py`
 2. Login into MSSQL and run [init_mssql.sql](./src/mssql/init_mssql.sql)
-3. Authen SnowSQL and run [init_snowflake.sql](./src/snowflake/init_snowfalke.sql)
+3. Authen SnowSQL and run [init_snowflake.sql](./src/snowflake/init_snowflake.sql)
 4. Unzip [project1_team7_FA_SSIS_Revise.7z](./src/project1_team7_FA_SSIS_Revise.7z) and open file `project1_team7_FA.sln` using Visual Studio
 5. Deloy [SSIS package on SQL Server](https://www.c-sharpcorner.com/article/deploy-ssis-package-to-sql-server/):
     - After deploying by Visual Studio successfully
