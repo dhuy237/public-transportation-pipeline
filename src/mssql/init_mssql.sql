@@ -72,6 +72,10 @@ CREATE TABLE [Bus].[BusCalendar]
 CONSTRAINT [PK_buscalendar] PRIMARY KEY ([date_id])
 );
 
+-- Create Index
+
+CREATE INDEX idx_date ON [Bus].[BusTrip] (date);
+CREATE INDEX idx_bus_code ON [Bus].[BusTrip] (bus_code);
 
 -- Insert calendar data into [BusCalendar]
 
