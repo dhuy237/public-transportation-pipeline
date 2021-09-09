@@ -15,6 +15,7 @@ Building the data pipeline.
     ![image](./docs/architectural-design-data-pipeline.jpg)
 3. Build data model
     - Schema
+    
     ![image](./docs/database_model_in_mssql.PNG)
     - Dimensional model
     ![image](./docs/dimensional_model.PNG)
@@ -38,6 +39,7 @@ Building the data pipeline.
     password = <password> # Ask the repo owner for the password
     ```
 - Install [Python](https://www.python.org/)
+
     Window 10, opeing Window Store, search `python` keyword and install python 3.9 
 - Clone the repo:
     ```
@@ -50,10 +52,10 @@ Building the data pipeline.
 2. Login into MSSQL and run [init_mssql.sql](./src/mssql/init_mssql.sql)
 3. Authen SnowSQL and run [init_snowflake.sql](./src/snowflake/init_snowfalke.sql)
 4. Unzip [project1_team7_FA_SSIS_Revise.7z](./src/project1_team7_FA_SSIS_Revise.7z) and open file `project1_team7_FA.sln` using Visual Studio
-5. Deloy SSIS package on SQL Server:
+5. Deloy [SSIS package on SQL Server](https://www.c-sharpcorner.com/article/deploy-ssis-package-to-sql-server/):
     - After deploying by Visual Studio successfully
     - Open project folder in `Integration Services Catalogs\SSISDB`
-    - Open `Environments` folder and set up 2 variables Database(PublicTransportation) and ServerName(your servername)
+    - Open `Environments` folder and set up 2 variables Database(PublicTransportation) and ServerName(your servername). [Read more](https://www.mssqltips.com/sqlservertip/4810/setup-environment-variables-in-sql-server-integration-services/)
     - Configure project with 2 above enviroments.
     - Expand project folder, right-click on package you want to execute and choose `execute`
 ## :round_pushpin: Roadmap
