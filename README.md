@@ -15,9 +15,9 @@ Building the data pipeline.
     ![image](./docs/architectural-design-data-pipeline.jpg)
 3. Build data model
     - Schema
-    ![image](./docs/database_model_in_mssql.png)
+    ![image](./docs/database_model_in_mssql.PNG)
     - Dimensional model
-    ![image](./docs/dimensional_model.png)
+    ![image](./docs/dimensional_model.PNG)
 4. Ingest data, Extract and Load into Data warehouse
     - The flat files data first go into the staging area, where preprocessing with SSIS and put to MSSQL.
 5. Load data onto Snowflake using snowsql
@@ -26,7 +26,7 @@ Building the data pipeline.
 6. Visualize your data
     - Data on the dimensional tables is visualized on the Power BI dashboard.
 
-![image](./docs/PowerBI_dashboard.png)
+![image](./docs/PowerBI_dashboard.PNG)
 
 ## :rocket: Getting Started
 ### Prerequisites
@@ -74,4 +74,4 @@ Contributions are what make the open source community such an amazing place to b
 - Huy Tran ([dhuy237](https://github.com/dhuy237)) - d.huy723@gmail.com
 - Quyen Mai ([mtquyen](https://github.com/mtquyen)) - maithiquyen124@gmail.com
 - Huy Nguyen ([huynguyen314](https://github.com/huynguyen314)) - thanhhuya10lk@gmail.com
-- ThieuKhanhLinh ([thieukhanhlinh](https://github.com/thieukhanhlinh)) - novemberlinh@gmail.com
+- Linh Thieu ([thieukhanhlinh](https://github.com/thieukhanhlinh)) - novemberlinh@gmail.com
